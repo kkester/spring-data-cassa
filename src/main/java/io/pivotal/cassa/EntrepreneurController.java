@@ -14,7 +14,7 @@ public class EntrepreneurController {
     private final EntrepreneurGenerator entrepreneurGenerator;
 
     @PostMapping
-    Entrepreneur create(@RequestParam TokenType tokenType) {
+    Entrepreneur createEntrepreneur(@RequestParam TokenType tokenType) {
         return entrepreneurGenerator.create(tokenType);
     }
 }
