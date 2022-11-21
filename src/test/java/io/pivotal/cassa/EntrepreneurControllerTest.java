@@ -5,12 +5,12 @@ import org.cassandraunit.spring.CassandraDataSet;
 import org.cassandraunit.spring.CassandraUnitTestExecutionListener;
 import org.cassandraunit.spring.EmbeddedCassandra;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +18,7 @@ import static org.springframework.test.context.TestExecutionListeners.MergeMode.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestExecutionListeners(
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     mergeMode = MERGE_WITH_DEFAULTS
 )
 @EmbeddedCassandra()
-@CassandraDataSet(keyspace = "bezkoder")
+@CassandraDataSet(keyspace = "bezkoder", value = {"test.cql"})
 class EntrepreneurControllerTest {
 
     @Autowired
@@ -44,7 +44,7 @@ class EntrepreneurControllerTest {
             .getResponse()
             .getContentAsString();
         Entrepreneur entrepreneur = objectMapper.readValue(entrepreneurContent, Entrepreneur.class);
-        assertThat(entrepreneur.getToken()).isEqualTo(TokenType.TOP_HAT);
+        assertThat(entrepreneur.getTokenType()).isEqualTo(TokenType.TOP_HAT);
         assertThat(entrepreneur.getFunds()).isEqualTo(1500.0);
         assertThat(entrepreneur.getName()).isNotBlank();
     }

@@ -23,15 +23,23 @@ create keyspace bezkoder with replication={'class':'SimpleStrategy', 'replicatio
 ```
 use bezkoder;
  
-CREATE TABLE tutorial(
-   id timeuuid PRIMARY KEY,
-   title text,
-   description text,
-   published boolean
+CREATE TABLE entrepreneur(
+   id uuid PRIMARY KEY,
+   name text,
+   tokentype text,
+   funds double
 );
 ```
 
-### Reference Documentation
+### CQL 
+
+```cql
+DROP TABLE <TableName>;
+
+DESC[RIBE] keyspaces;
+```
+
+## Reference Documentation
 For further reference, please consider the following sections:
 
 * [Official Gradle documentation](https://docs.gradle.org)

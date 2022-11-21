@@ -16,6 +16,6 @@ public class Entrepreneur {
     @PrimaryKey
     private UUID id;
     private String name;
-    private TokenType token;
+    private TokenType tokenType;
     private Double funds;
 }
