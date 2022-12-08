@@ -1,0 +1,19 @@
+.ModalBackground {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ModalBody {
+    border-radius: 20px;
+    border: 1.5px solid #d2d0d0ec;
+    background-color: #282c34;
+    margin: 10% auto;
+    padding: 20px;
+    width: 60%;
+}
