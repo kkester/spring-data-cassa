@@ -13,12 +13,17 @@ public class EntrepreneurGenerator {
     private final Faker faker;
 
     public Entrepreneur create(TokenType tokenType) {
-        Entrepreneur entrepreneur = Entrepreneur.builder()
+        EntrepreneurEntity entrepreneurEntity = EntrepreneurEntity.builder()
             .id(Uuids.timeBased())
             .name(faker.funnyName().name())
             .tokenType(tokenType)
             .funds(1500.0)
             .build();
-        return entrepreneurRepository.save(entrepreneur);
+        entrepreneurRepository.save(entrepreneurEntity);
+        return Entrepreneur.builder()
+            .name(entrepreneurEntity.getName())
+            .tokenType(entrepreneurEntity.getTokenType())
+            .funds(entrepreneurEntity.getFunds())
+            .build();
     }
 }

@@ -1,21 +1,21 @@
 package io.pivotal.cassa.entrepreneur;
 
+import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaBool;
+import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
+import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaTitle;
 import lombok.*;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-
-import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table
+@JsonSchemaInject(bools = {@JsonSchemaBool(path = "readOnly", value = true)})
 public class Entrepreneur {
-    @PrimaryKey
-    private UUID id;
+    @JsonSchemaTitle("Player Name")
     private String name;
+    @JsonSchemaTitle("Token")
     private TokenType tokenType;
+    @JsonSchemaTitle("Funds")
     private Double funds;
 }
