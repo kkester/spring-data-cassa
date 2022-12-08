@@ -1,4 +1,4 @@
-package io.pivotal.cassa;
+package io.pivotal.cassa.entrepreneur;
 
 public enum TokenType {
     TOP_HAT,

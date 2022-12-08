@@ -1,0 +1,10 @@
+spring:
+  data:
+    cassandra:
+      keyspace-name: bezkoder
+      contact-points: 127.0.0.1
+      port: 9042
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false

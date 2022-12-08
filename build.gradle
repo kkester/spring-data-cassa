@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "com.github.node-gradle.node" version "3.0.1"
 }
 
 group = 'io.pivotal'
@@ -18,9 +19,18 @@ repositories {
 	mavenCentral()
 }
 
+node {
+	version = '17.9.0'
+	download = true
+	workDir = file("${project.projectDir}/src/main/webapp/nodejs")
+	npmWorkDir = file("${project.projectDir}/src/main/webapp/npm")
+	nodeProjectDir = file("${project.projectDir}/src/main/webapp")
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.kjetland:mbknor-jackson-jsonschema_2.12:1.0.39'
 	implementation 'net.datafaker:datafaker:1.5.0'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -30,4 +40,24 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+processResources {
+	dependsOn 'copyFrontendToBuild'
+}
+
+task copyFrontendToBuild(type: Copy) {
+	from "$projectDir/src/main/webapp/build/"
+	into "$buildDir/resources/main/static"
+}
+
+task npmBuild(type: NpmTask) {
+	execOverrides {
+		it.workingDir = 'src/main/webapp'
+	}
+	args = ['run', 'build']
+}
+
+copyFrontendToBuild {
+	dependsOn 'npmBuild'
 }

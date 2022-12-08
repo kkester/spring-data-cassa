@@ -1,4 +1,4 @@
-package io.pivotal.cassa;
+package io.pivotal.cassa.entrepreneur;
 
 import org.springframework.data.cassandra.repository.CassandraRepository;
 

@@ -1,10 +1,9 @@
-package io.pivotal.cassa;
+package io.pivotal.cassa.entrepreneur;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.RequiredArgsConstructor;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -15,7 +14,7 @@ public class EntrepreneurGenerator {
 
     public Entrepreneur create(TokenType tokenType) {
         Entrepreneur entrepreneur = Entrepreneur.builder()
-            .id(UUID.randomUUID())
+            .id(Uuids.timeBased())
             .name(faker.funnyName().name())
             .tokenType(tokenType)
             .funds(1500.0)
