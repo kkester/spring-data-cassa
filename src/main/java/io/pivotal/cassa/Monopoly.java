@@ -1,4 +1,4 @@
-package io.pivotal.cassa.monopoly;
+package io.pivotal.cassa;
 
 import io.pivotal.cassa.board.Board;
 import io.pivotal.cassa.entrepreneur.Players;

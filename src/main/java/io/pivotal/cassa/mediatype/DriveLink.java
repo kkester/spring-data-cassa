@@ -65,6 +65,18 @@ public class DriveLink {
         return  map;
     }
 
+    public static Map<String, DriveLink> of(String k1, DriveLink v1, String k2, DriveLink v2,  String k3, DriveLink v3,  String k4, DriveLink v4,  String k5, DriveLink v5, String k6, DriveLink v6,  String k7, DriveLink v7) {
+        Map<String, DriveLink> map = new LinkedHashMap<>();
+        map.put(k1, v1);
+        map.put(k2, v2);
+        map.put(k3, v3);
+        map.put(k4, v4);
+        map.put(k5, v5);
+        map.put(k6, v6);
+        map.put(k7, v7);
+        return  map;
+    }
+
     @JsonGetter("type")
     public String getType() {
         return type == null ? null : type.toString();

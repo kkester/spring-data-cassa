@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Players {
     private Entrepreneur player1;
+    private Entrepreneur player2;
 }

@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+
 @Component
 @RequiredArgsConstructor
 public class EntrepreneurGenerator {
@@ -25,5 +27,12 @@ public class EntrepreneurGenerator {
             .tokenType(entrepreneurEntity.getTokenType())
             .funds(entrepreneurEntity.getFunds())
             .build();
+    }
+
+    public Entrepreneur createWithAnyTokenExcept(TokenType...tokens) {
+        List<TokenType> availableTokens = new ArrayList<>(Arrays.asList(TokenType.values()));
+        availableTokens.removeAll(Arrays.asList(tokens));
+        TokenType randomToken = availableTokens.get(faker.random().nextInt(availableTokens.size() - 1));
+        return create(randomToken);
     }
 }
