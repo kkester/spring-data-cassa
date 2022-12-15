@@ -3,6 +3,7 @@ package io.pivotal.cassa.entrepreneur;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaBool;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaTitle;
+import io.pivotal.cassa.board.Square;
 import lombok.*;
 
 @Getter
@@ -18,4 +19,6 @@ public class Entrepreneur {
     private TokenType tokenType;
     @JsonSchemaTitle("Funds")
     private Double funds;
+    @JsonSchemaTitle("Square")
+    private String square;
 }

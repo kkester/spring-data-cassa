@@ -18,25 +18,25 @@ public class LinkConstants {
 
     public static final DriveLink BATTLESHIP_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL + TokenType.BATTLESHIP)
-        .title("Battleship")
+        .title("Battleship\n")
         .method(HttpMethod.POST)
         .build();
 
     public static final DriveLink BOOT_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL + TokenType.BOOT)
-        .title("Boot")
+        .title("Boot\n")
         .method(HttpMethod.POST)
         .build();
 
     public static final DriveLink IRON_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL + TokenType.IRON)
-        .title("Iron")
+        .title("Iron\n")
         .method(HttpMethod.POST)
         .build();
 
     public static final DriveLink CANNON_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL + TokenType.CANNON)
-        .title("Cannon")
+        .title("Cannon\n")
         .method(HttpMethod.POST)
         .build();
 

@@ -27,7 +27,8 @@ CREATE TABLE entrepreneur(
    id uuid PRIMARY KEY,
    name text,
    tokentype text,
-   funds double
+   funds double,
+   squarename text
 );
 ```
 

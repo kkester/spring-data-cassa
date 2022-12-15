@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class Players {
     private Entrepreneur player1;
     private Entrepreneur player2;
+    private Entrepreneur player3;
 }

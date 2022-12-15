@@ -1,6 +1,7 @@
 package io.pivotal.cassa.entrepreneur;
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
+import io.pivotal.cassa.board.SquareConstants;
 import lombok.RequiredArgsConstructor;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Component;
@@ -20,12 +21,14 @@ public class EntrepreneurGenerator {
             .name(faker.funnyName().name())
             .tokenType(tokenType)
             .funds(1500.0)
+            .squareName(SquareConstants.GO.getName())
             .build();
         entrepreneurRepository.save(entrepreneurEntity);
         return Entrepreneur.builder()
             .name(entrepreneurEntity.getName())
             .tokenType(entrepreneurEntity.getTokenType())
             .funds(entrepreneurEntity.getFunds())
+            .square(entrepreneurEntity.getSquareName())
             .build();
     }
 
