@@ -19,7 +19,7 @@ docker exec -it cass_cluster cqlsh
 create keyspace bezkoder with replication={'class':'SimpleStrategy', 'replication_factor':1};
 ```
 
-### Create table in keyspace
+### Create tables and index in keyspace
 ```
 use bezkoder;
  
@@ -36,6 +36,8 @@ CREATE TABLE entrepreneur(
    monopolyid uuid,
    squareid int
 );
+
+CREATE INDEX monopoly_idx ON entrepreneur ( monopolyid );
 ```
 
 ### CQL
