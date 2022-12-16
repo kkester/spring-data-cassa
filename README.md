@@ -23,17 +23,22 @@ create keyspace bezkoder with replication={'class':'SimpleStrategy', 'replicatio
 ```
 use bezkoder;
  
+CREATE TABLE monopoly(
+   id uuid PRIMARY KEY,
+   pot int
+); 
+ 
 CREATE TABLE entrepreneur(
    id uuid PRIMARY KEY,
    name text,
    tokentype text,
    funds double,
-   squarename text
+   monopolyid uuid,
+   squareid int
 );
 ```
 
-### CQL 
-
+### CQL
 ```cql
 DROP TABLE <TableName>;
 

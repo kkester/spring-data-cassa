@@ -20,5 +20,5 @@ public class Entrepreneur {
     @JsonSchemaTitle("Funds")
     private Double funds;
     @JsonSchemaTitle("Square")
-    private String square;
+    private Square square;
 }

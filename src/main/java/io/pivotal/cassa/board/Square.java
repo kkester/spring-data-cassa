@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonSchemaInject(bools = {@JsonSchemaBool(path = "readOnly", value = true)})
 public class Square {
+    private Integer id;
     private String name;
     private ColorType color;
     private SquareType type;

@@ -1,30 +1,18 @@
-import '../css/Main.css';
-import '../css/MainTextField.css';
-import '../css/MainOptionsBox.css';
-import '../css/MainDateField.css';
-import '../css/MainFieldGroupRow.css';
-import '../css/MainTable.css';
-
-import { HttpMethod, ApiErrors, deleteResource, DriveResource, getResource, Link, saveResource, updateResource } from "../api/MonopolyApi";
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FormLayout } from '../components/FormLayout';
+import { ApiErrors, DriveResource, getResource, HttpMethod, Link, saveResource } from '../api/MonopolyApi';
 import { Modal } from '../components/Modal';
-import { useNavigate } from 'react-router-dom';
+import { FormLayout } from '../components/FormLayout';
 
-export const Main = () => {
-  const navigate = useNavigate();
+export const Monopoly = () => {
+
+  const { gameId } = useParams();
   const [driveResource, setDriveResource] = useState<DriveResource>();
   const [errors, setErrors] = useState<ApiErrors | undefined>(undefined);
   const [shouldShowModal, setShouldShowModal] = useState<boolean>(false);
 
-  const navigateToGame = (response: DriveResource) => {
-    const data = response.data ? response.data : {};
-    const gameId: string = data["id"];
-    navigate('/monopoly/' + gameId);
-  };
-
   useEffect(() => {
-    getResource("/api/monopoly")
+    getResource("/api/monopoly/" + gameId)
       .then(response => { setDriveResource(response) });
   }, [])
 
@@ -42,14 +30,9 @@ export const Main = () => {
         .catch(error => handleErrors(error.response.data));
     } else if (driveResource && HttpMethod.POST === linkMethod) {
       saveResource(link.href, driveResource.data)
-        .then(response => navigateToGame(response))
+        .then(response => setDriveResource(response))
         .catch(error => handleErrors(error.response.data));
     }
-  }
-
-  const handleDataChange = (attributeName: string, attributeValue: any) => {
-    const data = { ...driveResource?.data, [attributeName]: attributeValue };
-    setDriveResource({ ...driveResource, id: Date.now(), data: data });
   }
 
   return (
@@ -65,7 +48,7 @@ export const Main = () => {
                                     driveResource={driveResource}
                                     errors={errors}
                                     clickHandler={toggleClickHandler}
-                                    dataChangeHandler={handleDataChange} />}
+                                    dataChangeHandler={() => {}} />}
     </>
   );
-}
+};

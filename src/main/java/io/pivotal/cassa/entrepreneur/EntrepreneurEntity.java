@@ -18,5 +18,6 @@ public class EntrepreneurEntity {
     private String name;
     private TokenType tokenType;
     private Double funds;
-    private String squareName;
+    private UUID monopolyId;
+    private Integer squareId;
 }

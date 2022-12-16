@@ -2,13 +2,14 @@ package io.pivotal.cassa;
 
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaBool;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
-import io.pivotal.cassa.entrepreneur.Players;
+import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Data
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonSchemaInject(bools = {@JsonSchemaBool(path = "readOnly", value = true)})
 public class Monopoly {
-    private List<Players> players;
+    private UUID id;
+    private List<Entrepreneur> players;
     private Integer pot;
 }
