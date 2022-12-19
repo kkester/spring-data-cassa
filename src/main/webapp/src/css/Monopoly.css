@@ -1,0 +1,20 @@
+.Entrepreneur-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100%;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.Entrepreneur-cell {
+    background-color: white;
+    text-align: center;
+    border: 3px solid #3c465b;
+    border-radius: 10px;
+    min-height: 75vh;
+    padding-top: 20px;
+}
+
+.Entrepreneur-cell-item {
+    padding-top: 20px;
+}

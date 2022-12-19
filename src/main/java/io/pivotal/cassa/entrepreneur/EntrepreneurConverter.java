@@ -14,7 +14,7 @@ public class EntrepreneurConverter {
             .name(entrepreneurEntity.getName())
             .tokenType(entrepreneurEntity.getTokenType())
             .funds(entrepreneurEntity.getFunds())
-            .square(squareRepository.findById(entrepreneurEntity.getSquareId()))
+            .square(squareRepository.findById(entrepreneurEntity.getSquareId()).getName())
             .build();
     }
 }

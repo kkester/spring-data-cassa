@@ -2,6 +2,7 @@ import { Link, Schema, SchemaProperty, SchemaPropertySet } from "../api/Monopoly
 import { resolveSchema, ResourceAttribute } from "../api/ResourceFunctions";
 import { TableHeader } from "./TableHeader";
 import { TableRow } from "./TableRow";
+import React from 'react';
 
 export type RowItemCell = {
     name: string;

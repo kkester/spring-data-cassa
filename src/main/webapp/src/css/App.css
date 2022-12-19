@@ -1,7 +1,7 @@
 .App {
-  background-color: #282c34;
+  background-color: #d4d8de;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #3c465b;
 }
 
 .App-header {
@@ -18,11 +18,7 @@
 }
 
 .App-main {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
   min-height: 100vh;
-  align-items: center;
 }
 
 .App-link {
