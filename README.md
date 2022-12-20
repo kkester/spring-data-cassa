@@ -34,7 +34,8 @@ CREATE TABLE entrepreneur(
    tokentype text,
    funds double,
    monopolyid uuid,
-   squareid int
+   squareid int,
+   human boolean
 );
 
 CREATE INDEX monopoly_idx ON entrepreneur ( monopolyid );

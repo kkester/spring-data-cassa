@@ -5,50 +5,65 @@ import io.pivotal.cassa.mediatype.DriveLink;
 import org.springframework.http.HttpMethod;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class LinkConstants {
 
-    public static final String TOKEN_RELATIVE_URL = "/api/monopoly/token?token=";
+    public static final String TOKEN_RELATIVE_URL = "/api/monopoly/token?token=%s";
+    public static final String ROLL_RELATIVE_URL = "/api/monopoly/%s/roll";
 
     public static final DriveLink RACE_CAR_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.RACE_CAR)
+        .href(TOKEN_RELATIVE_URL)
         .title("Race Car")
         .method(HttpMethod.POST)
-        .build();
+        .build()
+        .applyVariables(TokenType.RACE_CAR);
 
     public static final DriveLink BATTLESHIP_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.BATTLESHIP)
+        .href(TOKEN_RELATIVE_URL)
         .title("Battleship\n")
         .method(HttpMethod.POST)
-        .build();
+        .build()
+        .applyVariables(TokenType.BATTLESHIP);
 
     public static final DriveLink BOOT_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.BOOT)
+        .href(TOKEN_RELATIVE_URL)
         .title("Boot\n")
         .method(HttpMethod.POST)
-        .build();
+        .build()
+        .applyVariables(TokenType.BOOT);
 
     public static final DriveLink IRON_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.IRON)
+        .href(TOKEN_RELATIVE_URL)
         .title("Iron\n")
         .method(HttpMethod.POST)
-        .build();
+        .build()
+        .applyVariables(TokenType.IRON);
 
     public static final DriveLink CANNON_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.CANNON)
+        .href(TOKEN_RELATIVE_URL)
         .title("Cannon\n")
         .method(HttpMethod.POST)
-        .build();
+        .build()
+        .applyVariables(TokenType.CANNON);
 
     public static final DriveLink THIMBLE_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.THIMBLE)
+        .href(TOKEN_RELATIVE_URL)
         .title("Thimble")
         .method(HttpMethod.POST)
-        .build();
+        .build()
+        .applyVariables(TokenType.THIMBLE);
 
     public static final DriveLink TOP_HAT_LINK = DriveLink.builder()
-        .href(TOKEN_RELATIVE_URL + TokenType.TOP_HAT)
+        .href(TOKEN_RELATIVE_URL)
         .title("Top Hat")
+        .method(HttpMethod.POST)
+        .build()
+        .applyVariables(TokenType.TOP_HAT);
+
+    public static final DriveLink ROLL_LINK = DriveLink.builder()
+        .href(ROLL_RELATIVE_URL)
+        .title("Roll")
         .method(HttpMethod.POST)
         .build();
 
@@ -61,6 +76,12 @@ public class LinkConstants {
         "iron", IRON_LINK,
         "battleship", BATTLESHIP_LINK
     );
+
+    public static Map<String, DriveLink> rollLinks(UUID monopolyId) {
+        return DriveLink.of(
+            "roll", ROLL_LINK.applyVariables(monopolyId)
+        );
+    }
 
     private LinkConstants() {
     }

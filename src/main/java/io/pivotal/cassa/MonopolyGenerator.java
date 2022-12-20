@@ -4,17 +4,11 @@ import com.datastax.oss.driver.api.core.uuid.Uuids;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.entrepreneur.EntrepreneurGenerator;
 import io.pivotal.cassa.entrepreneur.TokenType;
-import io.pivotal.cassa.mediatype.DriveLink;
-import io.pivotal.cassa.mediatype.DriveResource;
-import io.pivotal.cassa.mediatype.DriveResourceGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Map;
-
-import static java.util.Collections.emptyMap;
 
 @Component
 @RequiredArgsConstructor
@@ -29,7 +23,7 @@ public class MonopolyGenerator {
             .build();
         monopolyRepository.save(monopolyEntity);
 
-        Entrepreneur entrepreneur1 = entrepreneurGenerator.create(monopolyEntity.getId(), token);
+        Entrepreneur entrepreneur1 = entrepreneurGenerator.create(monopolyEntity.getId(), token, true);
         Entrepreneur entrepreneur2 = entrepreneurGenerator.createWithAnyTokenExcept(monopolyEntity.getId(), token);
         Entrepreneur entrepreneur3 = entrepreneurGenerator.createWithAnyTokenExcept(monopolyEntity.getId(), token, entrepreneur2.getTokenType());
         return Monopoly.builder()

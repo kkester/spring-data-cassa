@@ -17,6 +17,7 @@ public class EntrepreneurEntity {
     private UUID id;
     private String name;
     private TokenType tokenType;
+    private boolean human;
     private Double funds;
     private UUID monopolyId;
     private Integer squareId;

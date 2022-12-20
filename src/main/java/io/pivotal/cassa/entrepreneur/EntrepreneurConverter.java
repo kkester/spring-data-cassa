@@ -15,6 +15,7 @@ public class EntrepreneurConverter {
             .tokenType(entrepreneurEntity.getTokenType())
             .funds(entrepreneurEntity.getFunds())
             .square(squareRepository.findById(entrepreneurEntity.getSquareId()).getName())
+            .human(entrepreneurEntity.isHuman())
             .build();
     }
 }

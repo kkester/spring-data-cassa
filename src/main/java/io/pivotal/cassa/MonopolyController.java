@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 import static io.pivotal.cassa.LinkConstants.TOKEN_LINKS;
+import static io.pivotal.cassa.LinkConstants.rollLinks;
 import static java.util.Collections.emptyMap;
 
 @RestController
@@ -18,6 +19,7 @@ public class MonopolyController {
 
     private final MonopolyGenerator monopolyGenerator;
     private final MonopolyRetriever monopolyRetriever;
+    private final MonopolyExecutor monopolyExecutor;
     private final DriveResourceGenerator resourceGenerator;
 
     @GetMapping("/monopoly")
@@ -30,12 +32,19 @@ public class MonopolyController {
     @GetMapping("/monopoly/{monopolyId}")
     public DriveResource<Monopoly> getMonopolyById(@PathVariable UUID monopolyId) {
         Monopoly monopoly = monopolyRetriever.get(monopolyId);
-        return resourceGenerator.createDriveResource(emptyMap(), monopoly);
+        return resourceGenerator.createDriveResource(rollLinks(monopolyId), monopoly);
     }
 
     @PostMapping("/monopoly/token")
     public DriveResource<Monopoly> createToken(@RequestParam TokenType token) {
         Monopoly monopoly = monopolyGenerator.create(token);
         return resourceGenerator.createDriveResource(emptyMap(), monopoly);
+    }
+
+    @PostMapping("/monopoly/{monopolyId}/roll")
+    public DriveResource<Monopoly> rollDice(@PathVariable UUID monopolyId) {
+        monopolyExecutor.rollDice(monopolyId);
+        Monopoly monopoly = monopolyRetriever.get(monopolyId);
+        return resourceGenerator.createDriveResource(rollLinks(monopolyId), monopoly);
     }
 }

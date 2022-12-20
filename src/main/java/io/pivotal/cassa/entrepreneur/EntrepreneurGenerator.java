@@ -15,7 +15,7 @@ public class EntrepreneurGenerator {
     private final EntrepreneurConverter entrepreneurConverter;
     private final Faker faker;
 
-    public Entrepreneur create(UUID monopolyId, TokenType tokenType) {
+    public Entrepreneur create(UUID monopolyId, TokenType tokenType, boolean human) {
         EntrepreneurEntity entrepreneurEntity = EntrepreneurEntity.builder()
             .id(Uuids.timeBased())
             .name(faker.funnyName().name())
@@ -23,6 +23,7 @@ public class EntrepreneurGenerator {
             .funds(1500.0)
             .monopolyId(monopolyId)
             .squareId(SquareRepository.GO.getId())
+            .human(human)
             .build();
         entrepreneurRepository.save(entrepreneurEntity);
         return entrepreneurConverter.toEntrepreneur(entrepreneurEntity);
@@ -32,6 +33,6 @@ public class EntrepreneurGenerator {
         List<TokenType> availableTokens = new ArrayList<>(Arrays.asList(TokenType.values()));
         availableTokens.removeAll(Arrays.asList(tokens));
         TokenType randomToken = availableTokens.get(faker.random().nextInt(availableTokens.size() - 1));
-        return create(monopolyId, randomToken);
+        return create(monopolyId, randomToken, false);
     }
 }
