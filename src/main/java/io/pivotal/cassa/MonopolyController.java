@@ -1,6 +1,7 @@
 package io.pivotal.cassa;
 
 import io.pivotal.cassa.entrepreneur.TokenType;
+import io.pivotal.cassa.executors.MonopolyExecutor;
 import io.pivotal.cassa.mediatype.DriveResource;
 import io.pivotal.cassa.mediatype.DriveResourceGenerator;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import static java.util.Collections.emptyMap;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class MonopolyController {
 
     private final MonopolyGenerator monopolyGenerator;
@@ -32,7 +34,7 @@ public class MonopolyController {
     @GetMapping("/monopoly/{monopolyId}")
     public DriveResource<Monopoly> getMonopolyById(@PathVariable UUID monopolyId) {
         Monopoly monopoly = monopolyRetriever.get(monopolyId);
-        return resourceGenerator.createDriveResource(rollLinks(monopolyId), monopoly);
+        return resourceGenerator.createDriveResource(rollLinks(monopoly), monopoly);
     }
 
     @PostMapping("/monopoly/token")
@@ -45,6 +47,6 @@ public class MonopolyController {
     public DriveResource<Monopoly> rollDice(@PathVariable UUID monopolyId) {
         monopolyExecutor.rollDice(monopolyId);
         Monopoly monopoly = monopolyRetriever.get(monopolyId);
-        return resourceGenerator.createDriveResource(rollLinks(monopolyId), monopoly);
+        return resourceGenerator.createDriveResource(rollLinks(monopoly), monopoly);
     }
 }

@@ -1,9 +1,7 @@
 package io.pivotal.cassa;
 
-import io.pivotal.cassa.board.SquareRepository;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.entrepreneur.EntrepreneurConverter;
-import io.pivotal.cassa.entrepreneur.EntrepreneurEntity;
 import io.pivotal.cassa.entrepreneur.EntrepreneurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,12 +25,13 @@ public class MonopolyRetriever {
 
     private Monopoly convert(MonopolyEntity monopolyEntity) {
         List<Entrepreneur> entrepreneurs = entrepreneurRepository.findAllByMonopolyId(monopolyEntity.getId()).stream()
-            .map(entrepreneurConverter::toEntrepreneur)
+            .map(player -> entrepreneurConverter.toEntrepreneur(monopolyEntity.getId(), player))
             .collect(Collectors.toList());
         return Monopoly.builder()
             .id(monopolyEntity.getId())
             .pot(monopolyEntity.getPot())
             .players(entrepreneurs)
+            .gameOver(entrepreneurs.stream().anyMatch(player -> player.getFunds() <= 0))
             .build();
     }
 }

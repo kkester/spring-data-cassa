@@ -39,6 +39,14 @@ CREATE TABLE entrepreneur(
 );
 
 CREATE INDEX monopoly_idx ON entrepreneur ( monopolyid );
+
+CREATE TABLE property(
+   monopolyid uuid,
+   squareid int,
+   entrepreneurid uuid,
+   ownedType text,
+   PRIMARY KEY((monopolyid), squareid)
+); 
 ```
 
 ### CQL

@@ -1,7 +1,10 @@
 package io.pivotal.cassa.entrepreneur;
 
 import io.pivotal.cassa.board.Square;
+import io.pivotal.cassa.property.Property;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,5 +16,6 @@ public class Entrepreneur {
     private boolean human;
     private TokenType tokenType;
     private Double funds;
-    private String square;
+    private Square square;
+    private List<Property> properties;
 }

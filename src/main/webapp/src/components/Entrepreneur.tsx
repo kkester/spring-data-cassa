@@ -4,7 +4,7 @@ export const Entrepreneur = (props: {
   name: string;
   tokenType: string;
   funds: number;
-  square: string;
+  square: any;
   human: boolean;
 }) => {
 
@@ -33,37 +33,37 @@ export const Entrepreneur = (props: {
         token = <img src="/tophat.jpeg" alt="" width="180" height="183"/>;
     }
     return token;
-  }
+  };
 
   const renderSquareSwitch = (name: string): React.ReactNode => {
     let square: React.ReactNode;
     switch (name) {
       case 'Baltic Avenue':
-        square = <img src="/baltic.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/baltic.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Community Chest':
-        square = <img src="/chest.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/chest.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Mediterranean Avenue':
-        square = <img src="/medave.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/medave.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Income Tax':
-        square = <img src="/intax.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/intax.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Reading Railroad':
-        square = <img src="/reading.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/reading.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Oriental Avenue':
-        square = <img src="/reading.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/oriental.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Chance':
-        square = <img src="/chance.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/chance.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Vermont Avenue':
-        square = <img src="/vermont.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/vermont.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       case 'Connecticut Avenue':
-        square = <img src="/reading.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>
+        square = <img src="/conn.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
       default:
         square = <img src="/go.jpeg" alt="" width="180" height="179" className="Entrepreneur-cell-item"/>;
@@ -80,7 +80,11 @@ export const Entrepreneur = (props: {
       <br/>
       <label>${ props.funds }</label>
       <br/>
-      { renderSquareSwitch(props.square) }
+      { renderSquareSwitch(props.square['name']) }
+      <br/>
+      <label>{ props.square['ownedType'] }</label>
+      <br/>
+      <label>{ props.square['owner'] }</label>
     </div>
   );
 };

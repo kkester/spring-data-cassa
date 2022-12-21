@@ -20,4 +20,5 @@ public class Monopoly {
     private UUID id;
     private List<Entrepreneur> players;
     private Integer pot;
+    private boolean gameOver;
 }

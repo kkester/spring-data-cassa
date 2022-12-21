@@ -4,6 +4,7 @@ import io.pivotal.cassa.entrepreneur.TokenType;
 import io.pivotal.cassa.mediatype.DriveLink;
 import org.springframework.http.HttpMethod;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
@@ -67,7 +68,7 @@ public class LinkConstants {
         .method(HttpMethod.POST)
         .build();
 
-    public static final Map<String, DriveLink> TOKEN_LINKS = DriveLink.of(
+    static final Map<String, DriveLink> TOKEN_LINKS = DriveLink.of(
         "car", RACE_CAR_LINK,
         "boot", BOOT_LINK,
         "cannon", CANNON_LINK,
@@ -77,10 +78,12 @@ public class LinkConstants {
         "battleship", BATTLESHIP_LINK
     );
 
-    public static Map<String, DriveLink> rollLinks(UUID monopolyId) {
-        return DriveLink.of(
-            "roll", ROLL_LINK.applyVariables(monopolyId)
-        );
+    public static Map<String, DriveLink> rollLinks(Monopoly monopoly) {
+        return monopoly.isGameOver() ?
+            Collections.emptyMap() :
+            DriveLink.of(
+                "roll", ROLL_LINK.applyVariables(monopoly.getId())
+            );
     }
 
     private LinkConstants() {
