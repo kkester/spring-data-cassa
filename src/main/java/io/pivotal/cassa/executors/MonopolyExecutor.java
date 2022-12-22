@@ -32,9 +32,6 @@ public class MonopolyExecutor {
             if (nextSquare > 20) {
                 nextSquare = nextSquare - 20;
                 player.setFunds(player.getFunds() + 100);
-            } else if (nextSquare > 10) {
-                nextSquare = nextSquare - 10;
-                player.setFunds(player.getFunds() + 50);
             }
             player.setSquareId(nextSquare);
             invokeSquareExecutor(monopolyId, player, nextSquare);
@@ -52,7 +49,7 @@ public class MonopolyExecutor {
             taxExecutor.processSquare(player, squareEntity);
         } else if (SquareType.PROPERTY.equals(squareEntity.getType())) {
             propertyExecutor.processSquare(monopolyId, player, squareEntity);
-        } else if (SquareType.RAILROAD.equals(squareEntity.getType())) {
+        } else if (SquareType.RAILROAD.equals(squareEntity.getType()) || SquareType.UTILITY.equals(squareEntity.getType())) {
             railroadExecutor.processSquare(monopolyId, player, squareEntity);
         }
     }

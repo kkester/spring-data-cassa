@@ -1,5 +1,7 @@
 package io.pivotal.cassa;
 
+import io.pivotal.cassa.board.Square;
+import io.pivotal.cassa.board.SquareRetriever;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.entrepreneur.EntrepreneurConverter;
 import io.pivotal.cassa.entrepreneur.EntrepreneurRepository;
@@ -16,6 +18,7 @@ public class MonopolyRetriever {
     private final MonopolyRepository monopolyRepository;
     private final EntrepreneurRepository entrepreneurRepository;
     private final EntrepreneurConverter entrepreneurConverter;
+    private final SquareRetriever squareRetriever;
 
     public Monopoly get(UUID monopolyId) {
         return monopolyRepository.findById(monopolyId)
@@ -27,11 +30,13 @@ public class MonopolyRetriever {
         List<Entrepreneur> entrepreneurs = entrepreneurRepository.findAllByMonopolyId(monopolyEntity.getId()).stream()
             .map(player -> entrepreneurConverter.toEntrepreneur(monopolyEntity.getId(), player))
             .collect(Collectors.toList());
+        List<Square> squares = squareRetriever.retrieveSquares(monopolyEntity.getId());
         return Monopoly.builder()
             .id(monopolyEntity.getId())
             .pot(monopolyEntity.getPot())
             .players(entrepreneurs)
             .gameOver(entrepreneurs.stream().anyMatch(player -> player.getFunds() <= 0))
+            .squares(squares)
             .build();
     }
 }

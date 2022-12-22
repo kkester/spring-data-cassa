@@ -2,6 +2,7 @@ package io.pivotal.cassa;
 
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaBool;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
+import io.pivotal.cassa.board.Square;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +22,5 @@ public class Monopoly {
     private List<Entrepreneur> players;
     private Integer pot;
     private boolean gameOver;
+    private List<Square> squares;
 }

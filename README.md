@@ -54,6 +54,8 @@ CREATE TABLE property(
 DROP TABLE <TableName>;
 
 DESC[RIBE] keyspaces;
+
+TRUNCATE <TableName>;
 ```
 
 ## Reference Documentation

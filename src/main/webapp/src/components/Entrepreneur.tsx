@@ -65,6 +65,33 @@ export const Entrepreneur = (props: {
       case 'Connecticut Avenue':
         square = <img src="/conn.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
         break;
+      case 'Jail Just Visiting':
+        square = <img src="/jail.jpeg" alt="" width="180" height="179" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'St Charles Place':
+        square = <img src="/stcharles.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'Electric Company':
+        square = <img src="/electric.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'States Avenue':
+        square = <img src="/states.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'Virgina Avenue':
+        square = <img src="/virgina.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'Pennsylvania Railroad':
+        square = <img src="/pennrr.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'St James':
+        square = <img src="/stjames.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'Tennessee Avenue':
+        square = <img src="/tennave.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
+      case 'New York Avenue':
+        square = <img src="/nyave.jpeg" alt="" width="160" height="224" className="Entrepreneur-cell-item"/>;
+        break;
       default:
         square = <img src="/go.jpeg" alt="" width="180" height="179" className="Entrepreneur-cell-item"/>;
     }
@@ -80,9 +107,10 @@ export const Entrepreneur = (props: {
       <br/>
       <label>${ props.funds }</label>
       <br/>
-      { renderSquareSwitch(props.square['name']) }
+      { props.square['ownedType'] === 'HOUSE' && <img src="/house.jpeg" alt="" width="75" height="61"/> }
+      { props.square['ownedType'] === 'HOTEL' && <img src="/hotel.jpeg" alt="" width="75" height="75"/> }
       <br/>
-      <label>{ props.square['ownedType'] }</label>
+      { renderSquareSwitch(props.square['name']) }
       <br/>
       <label>{ props.square['owner'] }</label>
     </div>

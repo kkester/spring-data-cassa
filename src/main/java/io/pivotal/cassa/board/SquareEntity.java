@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +22,8 @@ public class SquareEntity {
     private Integer salary;
     private Integer rent;
     private Integer houseRent;
+    private Integer houseCost;
     private Integer hotelRent;
+    private Integer hotelCost;
     private OwnedType ownedType;
 }

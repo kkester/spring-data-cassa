@@ -39,11 +39,13 @@ public class PropertyExecutor {
     }
 
     private void handlePlayerOwnsProperty(EntrepreneurEntity player, SquareEntity square, PropertyEntity property) {
-        player.setFunds(player.getFunds() - 50);
-        if (OwnedType.OWNED.equals(property.getOwnedType())) {
+        Double funds = player.getFunds();
+        if (OwnedType.OWNED.equals(property.getOwnedType()) && (funds - square.getHouseCost()) > 200) {
             property.setOwnedType(OwnedType.HOUSE);
-        } else if (OwnedType.HOUSE.equals(property.getOwnedType())) {
+            player.setFunds(funds - square.getHouseCost());
+        } else if (OwnedType.HOUSE.equals(property.getOwnedType()) && (funds - square.getHotelCost()) > 200) {
             property.setOwnedType(OwnedType.HOTEL);
+            player.setFunds(funds - square.getHotelCost());
         }
         propertyRepository.save(property);
     }
@@ -66,6 +68,10 @@ public class PropertyExecutor {
     }
 
     private void handlePropertyNotFound(UUID monopolyId, EntrepreneurEntity player, SquareEntity square) {
+        if (player.getFunds() < 200) {
+            return;
+        }
+
         player.setFunds(player.getFunds() - square.getPrice());
         propertyRepository.save(PropertyEntity.builder()
             .propertyKey(PropertyKey.builder()
