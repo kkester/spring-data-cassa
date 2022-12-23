@@ -6,6 +6,7 @@ import { ApiErrors, DriveResource, getResource, HttpMethod, Link, saveResource }
 import { Modal } from '../components/Modal';
 import { Entrepreneur } from '../components/Entrepreneur';
 import { ButtonGroupRow } from '../components/ButtonGroupRow';
+import { Square } from '../components/Square';
 
 export const Monopoly = () => {
 
@@ -24,7 +25,7 @@ export const Monopoly = () => {
   const handleErrors = (apiErrors: ApiErrors) => {
     setErrors(apiErrors);
     setShouldShowModal(true);
-  }
+  };
 
   const toggleClickHandler = (link: Link) => {
     setErrors(undefined);
@@ -38,16 +39,25 @@ export const Monopoly = () => {
         .then(response => setDriveResource(response))
         .catch(error => handleErrors(error.response.data));
     }
-  }
+  };
 
   const resourceData = driveResource ? driveResource['data'] : {};
   const players: any[] = resourceData ? resourceData['players'] : [];
-  const rows: React.ReactNode[] = players && players.map((player) => (
+  const playerCells: React.ReactNode[] = players && players.map((player) => (
     <Entrepreneur name={ player['name'] }
                   tokenType={ player['tokenType'] }
                   funds={ player['funds'] }
                   square={ player['square'] }
                   human={ player['human'] }
+    />
+  ));
+
+  const squares: any[] = resourceData ? resourceData['squares'] : [];
+  const squareCells: React.ReactNode[] = squares && squares.map((square) => (
+    <Square name={ square['name'] }
+            owner={ square['owner'] }
+            ownedType={ square['ownedType'] }
+            visitors={ square['visitors'] }
     />
   ));
 
@@ -61,10 +71,15 @@ export const Monopoly = () => {
           <label>Message TBD</label>
         </div>
       </Modal> }
-      <div className="Entrepreneur-container">
-        { rows }
+      <div className="Monopoly-container">
+        <div className="Entrepreneur-container">
+          { playerCells }
+        </div>
+        <div className="Squares-container">
+          { squareCells }
+        </div>
       </div>
-      <ButtonGroupRow links={navLinks} clickHandler={toggleClickHandler} />
+      <ButtonGroupRow links={ navLinks } clickHandler={ toggleClickHandler }/>
     </>
   );
 };

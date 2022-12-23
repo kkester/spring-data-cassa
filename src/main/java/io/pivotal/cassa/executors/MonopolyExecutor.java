@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,18 +26,23 @@ public class MonopolyExecutor {
     private final Faker faker;
 
     public void rollDice(UUID monopolyId) {
-        List<EntrepreneurEntity> players = entrepreneurRepository.findAllByMonopolyId(monopolyId);
-        players.forEach(player -> {
-            Integer roll = faker.random().nextInt(2, 12);
-            int nextSquare = player.getSquareId() + roll;
-            if (nextSquare > 20) {
-                nextSquare = nextSquare - 20;
-                player.setFunds(player.getFunds() + 100);
-            }
-            player.setSquareId(nextSquare);
-            invokeSquareExecutor(monopolyId, player, nextSquare);
-            entrepreneurRepository.save(player);
-        });
+        List<UUID> playerIds = entrepreneurRepository.findAllByMonopolyId(monopolyId)
+            .stream().map(EntrepreneurEntity::getId)
+            .collect(Collectors.toList());
+        playerIds.forEach(playerId ->
+            entrepreneurRepository.findById(playerId)
+                .ifPresent(player -> {
+                    Integer roll = faker.random().nextInt(2, 12);
+                    int nextSquare = player.getSquareId() + roll;
+                    if (nextSquare > 20) {
+                        nextSquare = nextSquare - 20;
+                        player.setFunds(player.getFunds() + 100);
+                    }
+                    player.setSquareId(nextSquare);
+                    invokeSquareExecutor(monopolyId, player, nextSquare);
+                    entrepreneurRepository.save(player);
+                })
+        );
     }
 
     private void invokeSquareExecutor(UUID monopolyId, EntrepreneurEntity player, int squareId) {

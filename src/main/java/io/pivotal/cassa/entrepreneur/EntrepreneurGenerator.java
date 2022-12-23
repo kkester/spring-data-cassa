@@ -26,7 +26,7 @@ public class EntrepreneurGenerator {
             .human(human)
             .build();
         entrepreneurRepository.save(entrepreneurEntity);
-        return entrepreneurConverter.toEntrepreneur(monopolyId, entrepreneurEntity);
+        return entrepreneurConverter.toEntrepreneur(entrepreneurEntity);
     }
 
     public Entrepreneur createWithAnyTokenExcept(UUID monopolyId, TokenType...tokens) {

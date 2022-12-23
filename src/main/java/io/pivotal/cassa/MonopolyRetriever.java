@@ -28,7 +28,7 @@ public class MonopolyRetriever {
 
     private Monopoly convert(MonopolyEntity monopolyEntity) {
         List<Entrepreneur> entrepreneurs = entrepreneurRepository.findAllByMonopolyId(monopolyEntity.getId()).stream()
-            .map(player -> entrepreneurConverter.toEntrepreneur(monopolyEntity.getId(), player))
+            .map(entrepreneurConverter::toEntrepreneur)
             .collect(Collectors.toList());
         List<Square> squares = squareRetriever.retrieveSquares(monopolyEntity.getId());
         return Monopoly.builder()
