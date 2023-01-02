@@ -18,6 +18,7 @@ public class PropertyExecutor {
 
     private final EntrepreneurRepository entrepreneurRepository;
     private final PropertyRepository propertyRepository;
+    private final BuyPropertyExecutor buyPropertyExecutor;
 
     public void processSquare(UUID monopolyId, EntrepreneurEntity player, SquareEntity square) {
         propertyRepository.findById(PropertyKey.builder()
@@ -68,18 +69,6 @@ public class PropertyExecutor {
     }
 
     private void handlePropertyNotFound(UUID monopolyId, EntrepreneurEntity player, SquareEntity square) {
-        if ((player.getFunds() - square.getPrice()) < 250) {
-            return;
-        }
-
-        player.setFunds(player.getFunds() - square.getPrice());
-        propertyRepository.save(PropertyEntity.builder()
-            .propertyKey(PropertyKey.builder()
-                .monopolyId(monopolyId)
-                .squareId(square.getId())
-                .build())
-            .entrepreneurId(player.getId())
-            .ownedType(OwnedType.OWNED)
-            .build());
+        buyPropertyExecutor.handleBuyProperty(monopolyId, player, square);
     }
 }

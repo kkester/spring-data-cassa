@@ -23,6 +23,7 @@ public class MonopolyExecutor {
     private final ChanceExecutor chanceExecutor;
     private final TaxExecutor taxExecutor;
     private final RailroadExecutor railroadExecutor;
+    private final FreeParkingExecutor freeParkingExecutor;
     private final Faker faker;
 
     public void rollDice(UUID monopolyId) {
@@ -52,11 +53,13 @@ public class MonopolyExecutor {
         } else if (SquareType.CHEST.equals(squareEntity.getType())) {
             chestExecutor.processSquare(player, squareEntity);
         } else if (SquareType.TAX.equals(squareEntity.getType())) {
-            taxExecutor.processSquare(player, squareEntity);
+            taxExecutor.processSquare(monopolyId, player, squareEntity);
         } else if (SquareType.PROPERTY.equals(squareEntity.getType())) {
             propertyExecutor.processSquare(monopolyId, player, squareEntity);
         } else if (SquareType.RAILROAD.equals(squareEntity.getType()) || SquareType.UTILITY.equals(squareEntity.getType())) {
             railroadExecutor.processSquare(monopolyId, player, squareEntity);
+        }  else if (SquareType.PARKING.equals(squareEntity.getType())) {
+            freeParkingExecutor.processSquare(monopolyId, player, squareEntity);
         }
     }
 }

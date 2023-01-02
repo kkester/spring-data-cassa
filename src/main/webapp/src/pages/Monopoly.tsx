@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { ApiErrors, DriveResource, getResource, HttpMethod, Link, saveResource } from '../api/MonopolyApi';
 import { Modal } from '../components/Modal';
 import { Entrepreneur } from '../components/Entrepreneur';
-import { ButtonGroupRow } from '../components/ButtonGroupRow';
 import { Square } from '../components/Square';
 
 export const Monopoly = () => {
@@ -43,12 +42,15 @@ export const Monopoly = () => {
 
   const resourceData = driveResource ? driveResource['data'] : {};
   const players: any[] = resourceData ? resourceData['players'] : [];
+  const links = driveResource && driveResource.links ? driveResource.links : {};
   const playerCells: React.ReactNode[] = players && players.map((player) => (
     <Entrepreneur name={ player['name'] }
                   tokenType={ player['tokenType'] }
                   funds={ player['funds'] }
                   square={ player['square'] }
                   human={ player['human'] }
+                  rollLink={ links["roll"] }
+                  clickHandler={ toggleClickHandler }
     />
   ));
 
@@ -58,11 +60,9 @@ export const Monopoly = () => {
             owner={ square['owner'] }
             ownedType={ square['ownedType'] }
             visitors={ square['visitors'] }
+            pot={resourceData && resourceData["pot"]}
     />
   ));
-
-  const links = driveResource && driveResource.links ? driveResource.links : {};
-  const navLinks: Link[] = Object.keys(links).map((linkName) => links[linkName]);
 
   return (
     <>
@@ -79,7 +79,6 @@ export const Monopoly = () => {
           { squareCells }
         </div>
       </div>
-      <ButtonGroupRow links={ navLinks } clickHandler={ toggleClickHandler }/>
     </>
   );
 };

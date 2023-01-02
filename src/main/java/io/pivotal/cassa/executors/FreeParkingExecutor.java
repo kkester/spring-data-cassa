@@ -10,15 +10,15 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class TaxExecutor {
+public class FreeParkingExecutor {
 
     private final MonopolyRepository monopolyRepository;
 
     public void processSquare(UUID monopolyId, EntrepreneurEntity player, SquareEntity squareEntity) {
         monopolyRepository.findById(monopolyId).ifPresent(monopolyEntity -> {
-            monopolyEntity.setPot(monopolyEntity.getPot() + squareEntity.getTax());
+            player.setFunds(player.getFunds() + monopolyEntity.getPot());
+            monopolyEntity.setPot(200);
             monopolyRepository.save(monopolyEntity);
         });
-        player.setFunds(player.getFunds() - squareEntity.getTax());
     }
 }

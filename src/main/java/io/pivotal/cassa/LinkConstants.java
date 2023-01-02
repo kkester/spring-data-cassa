@@ -22,28 +22,28 @@ public class LinkConstants {
 
     public static final DriveLink BATTLESHIP_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL)
-        .title("Battleship\n")
+        .title("Battleship")
         .method(HttpMethod.POST)
         .build()
         .applyVariables(TokenType.BATTLESHIP);
 
     public static final DriveLink BOOT_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL)
-        .title("Boot\n")
+        .title("Boot")
         .method(HttpMethod.POST)
         .build()
         .applyVariables(TokenType.BOOT);
 
     public static final DriveLink IRON_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL)
-        .title("Iron\n")
+        .title("Iron")
         .method(HttpMethod.POST)
         .build()
         .applyVariables(TokenType.IRON);
 
     public static final DriveLink CANNON_LINK = DriveLink.builder()
         .href(TOKEN_RELATIVE_URL)
-        .title("Cannon\n")
+        .title("Cannon")
         .method(HttpMethod.POST)
         .build()
         .applyVariables(TokenType.CANNON);

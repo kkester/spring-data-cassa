@@ -6,6 +6,7 @@ export const Square = (props: {
   owner: string;
   ownedType: string;
   visitors: string[];
+  pot: number;
 }) => {
 
   const renderSquareSwitch = (name: string): React.ReactNode => {
@@ -123,10 +124,11 @@ export const Square = (props: {
       { renderSquareSwitch(props.name) }
       <br/>
       <label>{ props.owner }</label>
+      { props.name === 'Free Parking' && <label>Pot: ${ props.pot }</label> }
       <br/>
       <>{
         props.visitors && props.visitors.map((token) => (
-          <Token name={token} width={90} height={92} />
+          <Token name={ token } width={ 90 } height={ 92 }/>
         ))
       }</>
     </div>
