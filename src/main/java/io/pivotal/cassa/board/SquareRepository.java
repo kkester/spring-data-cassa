@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -227,6 +226,118 @@ public class SquareRepository {
         .ownedType(OwnedType.FOR_SALE)
         .build();
 
+    public static final SquareEntity FREE_PARKING = SquareEntity.builder()
+        .id(21)
+        .name("Free Parking")
+        .type(SquareType.PARKING)
+        .build();
+
+    public static final SquareEntity KENTUCKY_AVE = SquareEntity.builder()
+        .id(22)
+        .name("Kentucky Avenue")
+        .type(SquareType.PROPERTY)
+        .color(ColorType.RED)
+        .price(220)
+        .rent(90)
+        .houseRent(700)
+        .hotelRent(1050)
+        .houseCost(450)
+        .hotelCost(750)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity CHANCE2 = CHANCE.toBuilder()
+        .id(23)
+        .build();
+
+    public static final SquareEntity INDIANA_AVE = SquareEntity.builder()
+        .id(24)
+        .name("Indiana Avenue")
+        .type(SquareType.PROPERTY)
+        .color(ColorType.RED)
+        .price(220)
+        .rent(90)
+        .houseRent(700)
+        .hotelRent(1050)
+        .houseCost(450)
+        .hotelCost(750)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity ILLINOIS_AVE = SquareEntity.builder()
+        .id(25)
+        .name("Illinois Avenue")
+        .type(SquareType.PROPERTY)
+        .color(ColorType.RED)
+        .price(240)
+        .rent(100)
+        .houseRent(750)
+        .hotelRent(1100)
+        .houseCost(450)
+        .hotelCost(750)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity BO_RAILROAD = SquareEntity.builder()
+        .id(26)
+        .name("B.&O. Railroad")
+        .type(SquareType.RAILROAD)
+        .price(200)
+        .rent(200)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity ATLANTIC_AVE = SquareEntity.builder()
+        .id(27)
+        .name("Atlantic Avenue")
+        .type(SquareType.PROPERTY)
+        .color(ColorType.YELLOW)
+        .price(260)
+        .rent(110)
+        .houseRent(800)
+        .hotelRent(1150)
+        .houseCost(450)
+        .hotelCost(750)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity VENTNOR_AVE = SquareEntity.builder()
+        .id(28)
+        .name("Ventnor Avenue")
+        .type(SquareType.PROPERTY)
+        .color(ColorType.YELLOW)
+        .price(260)
+        .rent(110)
+        .houseRent(800)
+        .hotelRent(1150)
+        .houseCost(450)
+        .hotelCost(750)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity WATER_WORKS = SquareEntity.builder()
+        .id(29)
+        .name("Water Works")
+        .type(SquareType.UTILITY)
+        .price(150)
+        .rent(150)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
+    public static final SquareEntity MARVIN_GARDENS = SquareEntity.builder()
+        .id(30)
+        .name("Marvin Gardens")
+        .type(SquareType.PROPERTY)
+        .color(ColorType.YELLOW)
+        .price(280)
+        .rent(120)
+        .houseRent(850)
+        .hotelRent(1200)
+        .houseCost(450)
+        .hotelCost(750)
+        .ownedType(OwnedType.FOR_SALE)
+        .build();
+
     static final Map<Integer, SquareEntity> BOARD_MAP = new HashMap<>();
     static {
         BOARD_MAP.put(GO.getId(),GO);
@@ -249,6 +360,16 @@ public class SquareRepository {
         BOARD_MAP.put(CHEST2.getId(),CHEST2);
         BOARD_MAP.put(TENN_AVE.getId(),TENN_AVE);
         BOARD_MAP.put(NY_AVE.getId(),NY_AVE);
+        BOARD_MAP.put(FREE_PARKING.getId(),FREE_PARKING);
+        BOARD_MAP.put(KENTUCKY_AVE.getId(),KENTUCKY_AVE);
+        BOARD_MAP.put(CHANCE2.getId(),CHANCE2);
+        BOARD_MAP.put(INDIANA_AVE.getId(),INDIANA_AVE);
+        BOARD_MAP.put(ILLINOIS_AVE.getId(),ILLINOIS_AVE);
+        BOARD_MAP.put(BO_RAILROAD.getId(),BO_RAILROAD);
+        BOARD_MAP.put(ATLANTIC_AVE.getId(),ATLANTIC_AVE);
+        BOARD_MAP.put(VENTNOR_AVE.getId(),VENTNOR_AVE);
+        BOARD_MAP.put(WATER_WORKS.getId(),WATER_WORKS);
+        BOARD_MAP.put(MARVIN_GARDENS.getId(),MARVIN_GARDENS);
     }
 
     public SquareEntity findById(Integer squareId) {

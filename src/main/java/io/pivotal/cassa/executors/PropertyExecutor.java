@@ -40,10 +40,10 @@ public class PropertyExecutor {
 
     private void handlePlayerOwnsProperty(EntrepreneurEntity player, SquareEntity square, PropertyEntity property) {
         Double funds = player.getFunds();
-        if (OwnedType.OWNED.equals(property.getOwnedType()) && (funds - square.getHouseCost()) > 200) {
+        if (OwnedType.OWNED.equals(property.getOwnedType()) && (funds - square.getHouseCost()) > 250) {
             property.setOwnedType(OwnedType.HOUSE);
             player.setFunds(funds - square.getHouseCost());
-        } else if (OwnedType.HOUSE.equals(property.getOwnedType()) && (funds - square.getHotelCost()) > 200) {
+        } else if (OwnedType.HOUSE.equals(property.getOwnedType()) && (funds - square.getHotelCost()) > 250) {
             property.setOwnedType(OwnedType.HOTEL);
             player.setFunds(funds - square.getHotelCost());
         }
@@ -58,7 +58,7 @@ public class PropertyExecutor {
                     owner.setFunds(owner.getFunds() + square.getRent());
                 } else if (OwnedType.HOUSE.equals(property.getOwnedType())) {
                     player.setFunds(player.getFunds() - square.getHouseRent());
-                    owner.setFunds(owner.getFunds() + square.getHotelRent());
+                    owner.setFunds(owner.getFunds() + square.getHouseRent());
                 } else if (OwnedType.HOTEL.equals(property.getOwnedType())) {
                     player.setFunds(player.getFunds() - square.getHotelRent());
                     owner.setFunds(owner.getFunds() + square.getHotelRent());
@@ -68,7 +68,7 @@ public class PropertyExecutor {
     }
 
     private void handlePropertyNotFound(UUID monopolyId, EntrepreneurEntity player, SquareEntity square) {
-        if (player.getFunds() < 200) {
+        if ((player.getFunds() - square.getPrice()) < 250) {
             return;
         }
 

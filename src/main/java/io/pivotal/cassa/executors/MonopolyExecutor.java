@@ -34,9 +34,9 @@ public class MonopolyExecutor {
                 .ifPresent(player -> {
                     Integer roll = faker.random().nextInt(2, 12);
                     int nextSquare = player.getSquareId() + roll;
-                    if (nextSquare > 20) {
-                        nextSquare = nextSquare - 20;
-                        player.setFunds(player.getFunds() + 100);
+                    if (nextSquare > 30) {
+                        nextSquare = nextSquare - 30;
+                        player.setFunds(player.getFunds() + 200);
                     }
                     player.setSquareId(nextSquare);
                     invokeSquareExecutor(monopolyId, player, nextSquare);
