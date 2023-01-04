@@ -35,7 +35,8 @@ CREATE TABLE entrepreneur(
    funds double,
    monopolyid uuid,
    squareid int,
-   human boolean
+   human boolean,
+   message text
 );
 
 CREATE INDEX monopoly_idx ON entrepreneur ( monopolyid );

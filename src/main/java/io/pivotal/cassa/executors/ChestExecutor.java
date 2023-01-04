@@ -10,13 +10,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ChestExecutor {
     private final Faker faker;
-    public void processSquare(EntrepreneurEntity player, SquareEntity squareEntity) {
+    public void processSquare(EntrepreneurEntity player) {
         int toss = faker.random().nextInt(2);
         int value = faker.random().nextInt(50, 200);
         if (toss == 0) {
-            player.setFunds(player.getFunds() + value);
-        } else {
             player.setFunds(player.getFunds() - value);
+            player.setMessage("Pay poor tax of $" + value);
+        } else {
+            player.setFunds(player.getFunds() + value);
+            player.setMessage("Bank pays you dividend of $" + value);
         }
     }
 }

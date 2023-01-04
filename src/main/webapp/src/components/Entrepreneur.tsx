@@ -20,13 +20,14 @@ export const Entrepreneur = (props: {
       <Token name={ props.tokenType } width={ 160 } height={ 163 }/>
       <br/>
       <label>${ props.funds }</label>
+      <br/>
       { props.human && props.rollLink &&
           <span>
             <button id={ 'button-roll' }
                     type="button"
-                    className={ 'Token-button-input' }
+                    className={ 'Roll-button-input' }
                     onClick={ () => props.clickHandler(props.rollLink) }>
-              <span>{ props.rollLink.title ? props.rollLink.title : '' }</span>
+              { props.rollLink.title ? props.rollLink.title : '' }
             </button>
           </span>
       }

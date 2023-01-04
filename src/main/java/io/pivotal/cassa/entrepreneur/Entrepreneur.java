@@ -14,4 +14,5 @@ public class Entrepreneur {
     private TokenType tokenType;
     private Double funds;
     private Square square;
+    private String message;
 }

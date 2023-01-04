@@ -11,6 +11,7 @@ public class EntrepreneurConverter {
             .tokenType(entrepreneurEntity.getTokenType())
             .funds(entrepreneurEntity.getFunds())
             .human(entrepreneurEntity.isHuman())
+            .message(entrepreneurEntity.getMessage())
             .build();
     }
 }

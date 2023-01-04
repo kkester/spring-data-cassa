@@ -13,12 +13,12 @@ export const Monopoly = () => {
   const [driveResource, setDriveResource] = useState<DriveResource>();
   const [errors, setErrors] = useState<ApiErrors | undefined>(undefined);
   const [shouldShowModal, setShouldShowModal] = useState<boolean>(false);
+  const [messages, setMessages] = useState<string[] | undefined>(undefined);
 
   useEffect(() => {
     getResource('/api/monopoly/' + gameId)
-      .then(response => {
-        setDriveResource(response);
-      });
+      .then(response => handleMessages(response))
+      .then(response => setDriveResource(response));
   }, []);
 
   const handleErrors = (apiErrors: ApiErrors) => {
@@ -26,15 +26,31 @@ export const Monopoly = () => {
     setShouldShowModal(true);
   };
 
+  const handleMessages = (newResource: DriveResource): DriveResource => {
+    const newPlayers: any[] = newResource['data'] ? newResource['data']['players'] : [];
+    const newMessages: string[] = newPlayers && newPlayers
+      .filter(player => player['message'])
+      .map(player => player['name'] + ', ' + player['message']);
+    setMessages(newMessages);
+    console.log('here ' + newMessages);
+    if (newMessages && newMessages.length > 0) {
+      setShouldShowModal(true);
+      console.log('and' + newMessages);
+    }
+    return newResource;
+  };
+
   const toggleClickHandler = (link: Link) => {
     setErrors(undefined);
     const linkMethod: HttpMethod = link.method ? link.method : HttpMethod.GET;
     if (HttpMethod.GET === linkMethod) {
       getResource(link.href)
+        .then(response => handleMessages(response))
         .then(response => setDriveResource(response))
         .catch(error => handleErrors(error.response.data));
     } else if (driveResource && HttpMethod.POST === linkMethod) {
       saveResource(link.href, driveResource.data)
+        .then(response => handleMessages(response))
         .then(response => setDriveResource(response))
         .catch(error => handleErrors(error.response.data));
     }
@@ -43,32 +59,34 @@ export const Monopoly = () => {
   const resourceData = driveResource ? driveResource['data'] : {};
   const players: any[] = resourceData ? resourceData['players'] : [];
   const links = driveResource && driveResource.links ? driveResource.links : {};
-  const playerCells: React.ReactNode[] = players && players.map((player) => (
+  const playerCells: React.ReactNode[] = players && players.map((player) =>
     <Entrepreneur name={ player['name'] }
                   tokenType={ player['tokenType'] }
                   funds={ player['funds'] }
                   square={ player['square'] }
                   human={ player['human'] }
-                  rollLink={ links["roll"] }
+                  rollLink={ links['roll'] }
                   clickHandler={ toggleClickHandler }
     />
-  ));
+  );
 
   const squares: any[] = resourceData ? resourceData['squares'] : [];
-  const squareCells: React.ReactNode[] = squares && squares.map((square) => (
+  const squareCells: React.ReactNode[] = squares && squares.map((square) =>
     <Square name={ square['name'] }
             owner={ square['owner'] }
             ownedType={ square['ownedType'] }
             visitors={ square['visitors'] }
-            pot={resourceData && resourceData["pot"]}
+            pot={ resourceData && resourceData['pot'] }
     />
-  ));
+  );
+
+  const messageElements = messages && messages.map(message => <div><label>{message}</label><br/></div>);
 
   return (
     <>
       { shouldShowModal && <Modal shouldShow={ shouldShowModal } setShouldShow={ setShouldShowModal }>
         <div>
-          <label>Message TBD</label>
+          { messageElements }
         </div>
       </Modal> }
       <div className="Monopoly-container">

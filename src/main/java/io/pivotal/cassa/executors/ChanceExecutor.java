@@ -10,13 +10,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ChanceExecutor {
     private final Faker faker;
-    public void processSquare(EntrepreneurEntity player, SquareEntity squareEntity) {
+    public void processSquare(EntrepreneurEntity player) {
         int toss = faker.random().nextInt(2);
         int value = faker.random().nextInt(50, 200);
         if (toss == 0) {
             player.setFunds(player.getFunds() + value);
+            player.setMessage("You won first prize at a beauty contest.  Collect $" + value);
         } else {
             player.setFunds(player.getFunds() - value);
+            player.setMessage("Doctor's Fee.  Pay $" + value);
         }
     }
 }

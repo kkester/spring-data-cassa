@@ -21,4 +21,5 @@ public class EntrepreneurEntity {
     private Double funds;
     private UUID monopolyId;
     private Integer squareId;
+    private String message;
 }

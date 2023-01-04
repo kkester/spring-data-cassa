@@ -39,6 +39,7 @@ public class MonopolyExecutor {
                         nextSquare = nextSquare - 30;
                         player.setFunds(player.getFunds() + 200);
                     }
+                    player.setMessage(null);
                     player.setSquareId(nextSquare);
                     invokeSquareExecutor(monopolyId, player, nextSquare);
                     entrepreneurRepository.save(player);
@@ -49,9 +50,9 @@ public class MonopolyExecutor {
     private void invokeSquareExecutor(UUID monopolyId, EntrepreneurEntity player, int squareId) {
         SquareEntity squareEntity = squareRepository.findById(squareId);
         if (SquareType.CHANCE.equals(squareEntity.getType())) {
-            chanceExecutor.processSquare(player, squareEntity);
+            chanceExecutor.processSquare(player);
         } else if (SquareType.CHEST.equals(squareEntity.getType())) {
-            chestExecutor.processSquare(player, squareEntity);
+            chestExecutor.processSquare(player);
         } else if (SquareType.TAX.equals(squareEntity.getType())) {
             taxExecutor.processSquare(monopolyId, player, squareEntity);
         } else if (SquareType.PROPERTY.equals(squareEntity.getType())) {
