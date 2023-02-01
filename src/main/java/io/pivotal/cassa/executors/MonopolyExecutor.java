@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static io.pivotal.cassa.board.SquareType.*;
+
 @Component
 @RequiredArgsConstructor
 public class MonopolyExecutor {
@@ -49,18 +51,14 @@ public class MonopolyExecutor {
 
     private void invokeSquareExecutor(UUID monopolyId, EntrepreneurEntity player, int squareId) {
         SquareEntity squareEntity = squareRepository.findById(squareId);
-        if (SquareType.CHANCE.equals(squareEntity.getType())) {
-            chanceExecutor.processSquare(player);
-        } else if (SquareType.CHEST.equals(squareEntity.getType())) {
-            chestExecutor.processSquare(player);
-        } else if (SquareType.TAX.equals(squareEntity.getType())) {
-            taxExecutor.processSquare(monopolyId, player, squareEntity);
-        } else if (SquareType.PROPERTY.equals(squareEntity.getType())) {
-            propertyExecutor.processSquare(monopolyId, player, squareEntity);
-        } else if (SquareType.RAILROAD.equals(squareEntity.getType()) || SquareType.UTILITY.equals(squareEntity.getType())) {
-            railroadExecutor.processSquare(monopolyId, player, squareEntity);
-        }  else if (SquareType.PARKING.equals(squareEntity.getType())) {
-            freeParkingExecutor.processSquare(monopolyId, player, squareEntity);
+        switch (squareEntity.getType()) {
+            case CHANCE -> chanceExecutor.processSquare(player);
+            case CHEST -> chestExecutor.processSquare(player);
+            case TAX -> taxExecutor.processSquare(monopolyId, player, squareEntity);
+            case RAILROAD, UTILITY -> railroadExecutor.processSquare(monopolyId, player, squareEntity);
+            case PARKING -> freeParkingExecutor.processSquare(monopolyId, player, squareEntity);
+            case PROPERTY -> propertyExecutor.processSquare(monopolyId, player, squareEntity);
+            default -> {}
         }
     }
 }

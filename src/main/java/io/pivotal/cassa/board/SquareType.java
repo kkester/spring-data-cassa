@@ -7,5 +7,7 @@ public enum SquareType {
     CHANCE,
     CHEST,
     GO,
-    TAX, PARKING, JUST_VISITING
+    TAX,
+    PARKING,
+    JUST_VISITING
 }

@@ -14,15 +14,17 @@ export const Entrepreneur = (props: {
 
   return (
     <div className="Entrepreneur-cell">
-      <label>{ props.name }</label>
-      { props.human && <img src="/star.png" alt="" width="30" height="28"/> }
-      <br/>
-      <Token name={ props.tokenType } width={ 160 } height={ 163 }/>
-      <br/>
-      <label>${ props.funds }</label>
-      <br/>
-      { props.human && props.rollLink &&
-          <span>
+      <div>
+        <label>{ props.name }</label>
+        { props.human && <img src="/star.png" alt="" width="30" height="28"/> }
+      </div>
+      <Token name={ props.tokenType }/>
+      <div>
+        <label>${ props.funds }</label>
+      </div>
+      <div>
+        { props.human && props.rollLink &&
+            <span>
             <button id={ 'button-roll' }
                     type="button"
                     className={ 'Roll-button-input' }
@@ -30,7 +32,8 @@ export const Entrepreneur = (props: {
               { props.rollLink.title ? props.rollLink.title : '' }
             </button>
           </span>
-      }
+        }
+      </div>
     </div>
   );
 };

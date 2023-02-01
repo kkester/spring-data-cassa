@@ -52,7 +52,7 @@ export const Main = () => {
               type="button"
               className={ 'Token-button-input' }
               onClick={ () => clickHandler(link) }>
-        <Token name={ linkName } width={ 160 } height={ 163 }/>
+        <Token name={ linkName } />
         <span>{ link.title ? link.title : '' }</span>
       </button>
     </div>;

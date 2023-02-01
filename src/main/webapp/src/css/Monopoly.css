@@ -2,54 +2,58 @@
     display: grid;
     grid-template-columns: 10% 1fr;
     grid-template-rows: 100%;
+    padding: 0 1%;
 }
 
 .Entrepreneur-container {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    padding: 10px;
+    grid-row-gap: 0.5rem;
 }
 
 .Entrepreneur-cell {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 50% 15% 20%;
     background-color: rgb(238, 243, 250);
     text-align: center;
+    font-size: 90%;
     border: 3px solid #3c465b;
     border-radius: 10px;
-    min-height: 10vh;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    height: 200px;
+    width: 140px;
 }
 
 .Squares-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    padding: 10px;
+    grid-row-gap: 0.5rem;
 }
 
 .Square-cell {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 15% 50% 10% 25%;
     background-color: rgb(238, 243, 250);
     text-align: center;
-    font-size: calc(1px + 2vmin);
+    font-size: 75%;
     border: 3px solid #3c465b;
     border-radius: 10px;
-    min-height: 20vh;
-    padding-top: 5px;
-}
-
-.Square-item {
-    min-height: 30px;
+    height: 200px;
+    width: 140px;
 }
 
 .Roll-button-input {
     border: 0;
-    line-height: 2.5;
+    /*line-height: 2.5;*/
     padding: 3% 20% 0;
     width: 90%;
-    font-size: 2rem;
+    height: 90%;
+    font-size: 75%;
     text-align: center;
     color: #000;
     text-shadow: 1px 1px 1px #969696;
@@ -70,4 +74,19 @@
 .Roll-button-input:active {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
     inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+.Square-token-row {
+    display: flex;
+    justify-content: center;
+}
+
+.Owner-image {
+    width: auto;
+    height: 100%;
+}
+
+.Property-image {
+    width: 70%;
+    height: 100%;
 }

@@ -32,10 +32,8 @@ export const Monopoly = () => {
       .filter(player => player['message'])
       .map(player => player['name'] + ', ' + player['message']);
     setMessages(newMessages);
-    console.log('here ' + newMessages);
     if (newMessages && newMessages.length > 0) {
       setShouldShowModal(true);
-      console.log('and' + newMessages);
     }
     return newResource;
   };
