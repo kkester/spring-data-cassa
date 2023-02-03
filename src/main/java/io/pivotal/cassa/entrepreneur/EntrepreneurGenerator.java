@@ -20,7 +20,7 @@ public class EntrepreneurGenerator {
             .id(Uuids.timeBased())
             .name(faker.funnyName().name())
             .tokenType(tokenType)
-            .funds(1500.0)
+            .funds(1500)
             .monopolyId(monopolyId)
             .squareId(SquareRepository.GO.getId())
             .human(human)

@@ -2,6 +2,8 @@ package io.pivotal.cassa.executors;
 
 import io.pivotal.cassa.board.OwnedType;
 import io.pivotal.cassa.board.SquareEntity;
+import io.pivotal.cassa.board.SquareRepository;
+import io.pivotal.cassa.board.SquareType;
 import io.pivotal.cassa.entrepreneur.EntrepreneurEntity;
 import io.pivotal.cassa.entrepreneur.EntrepreneurRepository;
 import io.pivotal.cassa.property.PropertyEntity;
@@ -18,6 +20,7 @@ public class RailroadExecutor {
 
     private final EntrepreneurRepository entrepreneurRepository;
     private final PropertyRepository propertyRepository;
+    private final SquareRepository squareRepository;
     private final BuyPropertyExecutor buyPropertyExecutor;
 
     public void processSquare(UUID monopolyId, EntrepreneurEntity player, SquareEntity square) {
@@ -38,11 +41,16 @@ public class RailroadExecutor {
     }
 
     private void handlePlayerDoesNotOwnProperty(EntrepreneurEntity player, SquareEntity squareEntity, PropertyEntity propertyEntity, UUID entrepreneurId) {
+        SquareType squareType = squareEntity.getType();
+        Long propertyTypeCount = propertyRepository.findAllByEntrepreneurId(entrepreneurId).stream()
+            .filter(playerProperty -> squareType.equals(squareRepository.findById(playerProperty.getPropertyKey().getSquareId()).getType()))
+            .count();
         entrepreneurRepository.findById(entrepreneurId)
             .ifPresent(owner -> {
                 if (OwnedType.OWNED.equals(propertyEntity.getOwnedType())) {
-                    player.setFunds(player.getFunds() - squareEntity.getRent());
-                    owner.setFunds(owner.getFunds() + squareEntity.getRent());
+                    int rentCost = squareEntity.getRent() * propertyTypeCount.intValue();
+                    player.setFunds(player.getFunds() - rentCost);
+                    owner.setFunds(owner.getFunds() + rentCost);
                 }
                 entrepreneurRepository.save(owner);
             });

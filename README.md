@@ -25,14 +25,15 @@ use bezkoder;
  
 CREATE TABLE monopoly(
    id uuid PRIMARY KEY,
-   pot int
+   pot int,
+   gameover boolean
 ); 
  
 CREATE TABLE entrepreneur(
    id uuid PRIMARY KEY,
    name text,
    tokentype text,
-   funds double,
+   funds int,
    monopolyid uuid,
    squareid int,
    human boolean,
@@ -47,7 +48,9 @@ CREATE TABLE property(
    entrepreneurid uuid,
    ownedType text,
    PRIMARY KEY((monopolyid), squareid)
-); 
+);
+
+CREATE INDEX entrepreneur_idx ON property ( entrepreneurid ); 
 ```
 
 ### CQL

@@ -18,4 +18,5 @@ public class MonopolyEntity {
     @PrimaryKey
     private UUID id;
     private Integer pot;
+    private boolean gameOver;
 }

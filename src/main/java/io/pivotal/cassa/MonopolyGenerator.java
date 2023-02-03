@@ -20,6 +20,7 @@ public class MonopolyGenerator {
         MonopolyEntity monopolyEntity = MonopolyEntity.builder()
             .id(Uuids.timeBased())
             .pot(200)
+            .gameOver(false)
             .build();
         monopolyRepository.save(monopolyEntity);
 

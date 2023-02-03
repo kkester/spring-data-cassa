@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -29,13 +28,13 @@ public class MonopolyRetriever {
     private Monopoly convert(MonopolyEntity monopolyEntity) {
         List<Entrepreneur> entrepreneurs = entrepreneurRepository.findAllByMonopolyId(monopolyEntity.getId()).stream()
             .map(entrepreneurConverter::toEntrepreneur)
-            .collect(Collectors.toList());
+            .toList();
         List<Square> squares = squareRetriever.retrieveSquares(monopolyEntity.getId());
         return Monopoly.builder()
             .id(monopolyEntity.getId())
             .pot(monopolyEntity.getPot())
             .players(entrepreneurs)
-            .gameOver(entrepreneurs.stream().anyMatch(player -> player.getFunds() <= 0))
+            .gameOver(monopolyEntity.isGameOver())
             .squares(squares)
             .build();
     }

@@ -18,5 +18,5 @@ public class PropertyKey implements Serializable {
     @PrimaryKeyColumn
     private UUID monopolyId;
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
-    private int squareId;
+    private Integer squareId;
 }

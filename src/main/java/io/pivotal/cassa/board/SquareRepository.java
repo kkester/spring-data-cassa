@@ -62,7 +62,7 @@ public class SquareRepository {
         .name("Reading Railroad")
         .type(SquareType.RAILROAD)
         .price(200)
-        .rent(200)
+        .rent(50)
         .ownedType(OwnedType.FOR_SALE)
         .build();
 
@@ -139,7 +139,7 @@ public class SquareRepository {
         .name("Electric Company")
         .type(SquareType.UTILITY)
         .price(150)
-        .rent(150)
+        .rent(100)
         .ownedType(OwnedType.FOR_SALE)
         .build();
 
@@ -176,7 +176,7 @@ public class SquareRepository {
         .name("Pennsylvania Railroad")
         .type(SquareType.RAILROAD)
         .price(200)
-        .rent(200)
+        .rent(75)
         .ownedType(OwnedType.FOR_SALE)
         .build();
 
@@ -283,7 +283,7 @@ public class SquareRepository {
         .name("B.&O. Railroad")
         .type(SquareType.RAILROAD)
         .price(200)
-        .rent(200)
+        .rent(50)
         .ownedType(OwnedType.FOR_SALE)
         .build();
 
@@ -320,7 +320,7 @@ public class SquareRepository {
         .name("Water Works")
         .type(SquareType.UTILITY)
         .price(150)
-        .rent(150)
+        .rent(100)
         .ownedType(OwnedType.FOR_SALE)
         .build();
 

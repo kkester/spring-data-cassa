@@ -1,16 +1,18 @@
 package io.pivotal.cassa.executors;
 
-import io.pivotal.cassa.property.PropertyEntity;
-import io.pivotal.cassa.property.PropertyKey;
-import io.pivotal.cassa.property.PropertyRepository;
 import io.pivotal.cassa.board.OwnedType;
 import io.pivotal.cassa.board.SquareEntity;
 import io.pivotal.cassa.entrepreneur.EntrepreneurEntity;
 import io.pivotal.cassa.entrepreneur.EntrepreneurRepository;
+import io.pivotal.cassa.property.PropertyEntity;
+import io.pivotal.cassa.property.PropertyKey;
+import io.pivotal.cassa.property.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+
+import static io.pivotal.cassa.board.OwnedType.*;
 
 @Component
 @RequiredArgsConstructor
@@ -40,12 +42,12 @@ public class PropertyExecutor {
     }
 
     private void handlePlayerOwnsProperty(EntrepreneurEntity player, SquareEntity square, PropertyEntity property) {
-        Double funds = player.getFunds();
-        if (OwnedType.OWNED.equals(property.getOwnedType()) && (funds - square.getHouseCost()) > 250) {
-            property.setOwnedType(OwnedType.HOUSE);
+        Integer funds = player.getFunds();
+        if (OWNED.equals(property.getOwnedType()) && (funds - square.getHouseCost()) > 250) {
+            property.setOwnedType(HOUSE);
             player.setFunds(funds - square.getHouseCost());
-        } else if (OwnedType.HOUSE.equals(property.getOwnedType()) && (funds - square.getHotelCost()) > 250) {
-            property.setOwnedType(OwnedType.HOTEL);
+        } else if (HOUSE.equals(property.getOwnedType()) && (funds - square.getHotelCost()) > 250) {
+            property.setOwnedType(HOTEL);
             player.setFunds(funds - square.getHotelCost());
         }
         propertyRepository.save(property);
@@ -54,13 +56,13 @@ public class PropertyExecutor {
     private void handlePlayerDoesNotOwnProperty(EntrepreneurEntity player, SquareEntity square, PropertyEntity property, UUID entrepreneurId) {
         entrepreneurRepository.findById(entrepreneurId)
             .ifPresent(owner -> {
-                if (OwnedType.OWNED.equals(property.getOwnedType())) {
+                if (OWNED.equals(property.getOwnedType())) {
                     player.setFunds(player.getFunds() - square.getRent());
                     owner.setFunds(owner.getFunds() + square.getRent());
-                } else if (OwnedType.HOUSE.equals(property.getOwnedType())) {
+                } else if (HOUSE.equals(property.getOwnedType())) {
                     player.setFunds(player.getFunds() - square.getHouseRent());
                     owner.setFunds(owner.getFunds() + square.getHouseRent());
-                } else if (OwnedType.HOTEL.equals(property.getOwnedType())) {
+                } else if (HOTEL.equals(property.getOwnedType())) {
                     player.setFunds(player.getFunds() - square.getHotelRent());
                     owner.setFunds(owner.getFunds() + square.getHotelRent());
                 }

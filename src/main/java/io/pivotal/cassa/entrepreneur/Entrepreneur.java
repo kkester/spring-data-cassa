@@ -12,7 +12,7 @@ public class Entrepreneur {
     private String name;
     private boolean human;
     private TokenType tokenType;
-    private Double funds;
+    private Integer funds;
     private Square square;
     private String message;
 }
