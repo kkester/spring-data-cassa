@@ -74,17 +74,17 @@ const injectId = (resource: DriveResource): DriveResource => {
   return {...resource, id: Date.now()};
 }
 
-const host = "http://localhost:8080";
+export const apiHost = "http://localhost:8080";
 
 export const getResource = async (uri: string): Promise<DriveResource> => {
-  const data = await fetch(host + uri, {
+  const data = await fetch(apiHost + uri, {
     method: "GET"
   });
   return data.json();
 };
 
 export const saveResource = async (uri: string, body: any): Promise<DriveResource> => {
-  const data = await fetch(host + uri, {
+  const data = await fetch(apiHost + uri, {
     method: "POST",
     body: body
   });

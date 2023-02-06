@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,30 +24,32 @@ public class SquareRetriever {
         List<EntrepreneurEntity> players = entrepreneurRepository.findAllByMonopolyId(monopolyId);
         return squareRepository.findAll().stream()
             .map(squareEntity -> getSquareFor(monopolyId, squareEntity.getId(), players))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public Square getSquareFor(UUID monopolyId, int squareId, List<EntrepreneurEntity> players) {
         List<TokenType> visitors = players.stream()
             .filter(player -> player.getSquareId().equals(squareId))
             .map(EntrepreneurEntity::getTokenType)
-            .collect(Collectors.toList());
+            .toList();
 
         SquareEntity squareEntity = squareRepository.findById(squareId);
         Optional<PropertyEntity> propertyEntityOptional = findProperty(monopolyId, squareEntity);
         return propertyEntityOptional
-            .map(propertyEntity -> toSquare(squareEntity.getName(), propertyEntity, visitors))
+            .map(propertyEntity -> toSquare(squareEntity, propertyEntity, visitors))
             .orElse(Square.builder()
+                .id(squareEntity.getId())
                 .name(squareEntity.getName())
                 .ownedType(squareEntity.getOwnedType())
                 .visitors(visitors)
                 .build());
     }
 
-    private Square toSquare(String squareName, PropertyEntity propertyEntity, List<TokenType> visitors) {
+    private Square toSquare(SquareEntity squareEntity, PropertyEntity propertyEntity, List<TokenType> visitors) {
         Optional<EntrepreneurEntity> entrepreneurOptional = entrepreneurRepository.findById(propertyEntity.getEntrepreneurId());
         return Square.builder()
-            .name(squareName)
+            .id(squareEntity.getId())
+            .name(squareEntity.getName())
             .owner(entrepreneurOptional.map(EntrepreneurEntity::getName).orElse(""))
             .ownedType(propertyEntity.getOwnedType())
             .visitors(visitors)

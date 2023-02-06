@@ -26,4 +26,5 @@ public class SquareEntity {
     private Integer hotelRent;
     private Integer hotelCost;
     private OwnedType ownedType;
+    private String imageName;
 }

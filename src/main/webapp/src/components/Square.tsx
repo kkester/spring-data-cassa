@@ -1,7 +1,9 @@
 import React from 'react';
 import { Token } from './Token';
+import { apiHost } from '../api/MonopolyApi';
 
 export const Square = (props: {
+  id: number;
   name: string;
   owner: string;
   ownedType: string;
@@ -9,94 +11,8 @@ export const Square = (props: {
   pot: number;
 }) => {
 
-  const renderSquareSwitch = (name: string): React.ReactNode => {
-    let square: React.ReactNode;
-    switch (name) {
-      case 'Baltic Avenue':
-        square = <img src="/baltic.png" alt="" className="Property-image"/>;
-        break;
-      case 'Community Chest':
-        square = <img src="/chest.png" alt="" className="Property-image"/>;
-        break;
-      case 'Mediterranean Avenue':
-        square = <img src="/medave.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Income Tax':
-        square = <img src="/intax.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Reading Railroad':
-        square = <img src="/reading.png" alt="" className="Property-image"/>;
-        break;
-      case 'Oriental Avenue':
-        square = <img src="/oriental.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Chance':
-        square = <img src="/chance.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Vermont Avenue':
-        square = <img src="/vermont.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Connecticut Avenue':
-        square = <img src="/conn.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Jail Just Visiting':
-        square = <img src="/jail.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'St Charles Place':
-        square = <img src="/stcharles.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Electric Company':
-        square = <img src="/electric.png" alt="" className="Property-image"/>;
-        break;
-      case 'States Avenue':
-        square = <img src="/states.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Virgina Avenue':
-        square = <img src="/virgina.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Pennsylvania Railroad':
-        square = <img src="/pennrr.png" alt="" className="Property-image"/>;
-        break;
-      case 'St James':
-        square = <img src="/stjames.png" alt="" className="Property-image"/>;
-        break;
-      case 'Tennessee Avenue':
-        square = <img src="/tennave.png" alt="" className="Property-image"/>;
-        break;
-      case 'New York Avenue':
-        square = <img src="/nyave.png" alt="" className="Property-image"/>;
-        break;
-      case 'Free Parking':
-        square = <img src="/parking.jpeg" alt="" className="Property-image"/>;
-        break;
-      case 'Kentucky Avenue':
-        square = <img src="/kentucky.png" alt="" className="Property-image"/>;
-        break;
-      case 'Indiana Avenue':
-        square = <img src="/indiana.png" alt="" className="Property-image"/>;
-        break;
-      case 'Illinois Avenue':
-        square = <img src="/illinois.png" alt="" className="Property-image"/>;
-        break;
-      case 'B.&O. Railroad':
-        square = <img src="/borr.png" alt="" className="Property-image"/>;
-        break;
-      case 'Atlantic Avenue':
-        square = <img src="/atlantic.png" alt="" className="Property-image"/>;
-        break;
-      case 'Ventnor Avenue':
-        square = <img src="/ventnor.png" alt="" className="Property-image"/>;
-        break;
-      case 'Water Works':
-        square = <img src="/water.png" alt="" className="Property-image"/>;
-        break;
-      case 'Marvin Gardens':
-        square = <img src="/marvin.png" alt="" className="Property-image"/>;
-        break;
-      default:
-        square = <img src="/go.jpeg" alt="" className="Property-image"/>;
-    }
-    return square;
+  const renderSquareSwitch = (id: number): React.ReactNode => {
+    return <img src={ apiHost + '/api/squares/' + id + '/image'} alt="" className="Property-image"/>;
   };
 
   const renderOwnerTypeSwitch = (ownedType: string): React.ReactNode => {
@@ -123,7 +39,7 @@ export const Square = (props: {
         { renderOwnerTypeSwitch(props.ownedType) }
       </div>
       <div>
-        { renderSquareSwitch(props.name) }
+        { renderSquareSwitch(props.id) }
       </div>
       <div>
         <label>{ props.owner }</label>

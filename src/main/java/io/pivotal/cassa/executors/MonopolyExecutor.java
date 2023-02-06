@@ -37,8 +37,8 @@ public class MonopolyExecutor {
                     if (player.getFunds() > 0) {
                         Integer roll = faker.random().nextInt(2, 12);
                         int nextSquare = player.getSquareId() + roll;
-                        if (nextSquare > 30) {
-                            nextSquare = nextSquare - 30;
+                        if (nextSquare > 40) {
+                            nextSquare = nextSquare - 40;
                             player.setFunds(player.getFunds() + 200);
                         }
                         player.setMessage(null);

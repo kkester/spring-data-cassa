@@ -9,5 +9,5 @@ public enum SquareType {
     GO,
     TAX,
     PARKING,
-    JUST_VISITING
+    GOTO_JAIL, JUST_VISITING
 }

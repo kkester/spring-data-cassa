@@ -70,7 +70,8 @@ export const Monopoly = () => {
 
   const squares: any[] = resourceData ? resourceData['squares'] : [];
   const squareCells: React.ReactNode[] = squares && squares.map((square) =>
-    <Square name={ square['name'] }
+    <Square id={ square['id'] }
+            name={ square['name'] }
             owner={ square['owner'] }
             ownedType={ square['ownedType'] }
             visitors={ square['visitors'] }
@@ -78,7 +79,7 @@ export const Monopoly = () => {
     />
   );
 
-  const messageElements = messages && messages.map(message => <div><label>{message}</label><br/></div>);
+  const messageElements = messages && messages.map(message => <div><label>{ message }</label><br/></div>);
 
   return (
     <>

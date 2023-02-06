@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @JsonSchemaInject(bools = {@JsonSchemaBool(path = "readOnly", value = true)})
 public class Square {
+    private int id;
     private String name;
     private OwnedType ownedType;
     private String owner;
