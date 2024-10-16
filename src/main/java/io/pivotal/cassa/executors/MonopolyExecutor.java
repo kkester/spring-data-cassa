@@ -16,6 +16,7 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class MonopolyExecutor {
+
     private final EntrepreneurRepository entrepreneurRepository;
     private final MonopolyRepository monopolyRepository;
     private final SquareRepository squareRepository;
@@ -61,7 +62,7 @@ public class MonopolyExecutor {
             case CHEST -> chestExecutor.processSquare(player);
             case TAX -> taxExecutor.processSquare(monopolyId, player, squareEntity);
             case RAILROAD, UTILITY -> railroadExecutor.processSquare(monopolyId, player, squareEntity);
-            case PARKING -> freeParkingExecutor.processSquare(monopolyId, player, squareEntity);
+            case PARKING -> freeParkingExecutor.processSquare(monopolyId, player);
             case PROPERTY -> propertyExecutor.processSquare(monopolyId, player, squareEntity);
             default -> {
             }

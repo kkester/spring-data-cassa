@@ -1,6 +1,5 @@
 package io.pivotal.cassa.executors;
 
-import io.pivotal.cassa.board.OwnedType;
 import io.pivotal.cassa.board.SquareEntity;
 import io.pivotal.cassa.board.SquareRepository;
 import io.pivotal.cassa.entrepreneur.EntrepreneurEntity;

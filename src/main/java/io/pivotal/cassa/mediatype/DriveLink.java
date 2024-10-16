@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,8 +18,8 @@ public class DriveLink {
     private String rel;
     private String href;
     private String title;
-    private HttpMethod method;
-    private MediaType type;
+    private String method;
+    private String type;
     @JsonProperty(value = "$ref")
     private String ref;
 
@@ -32,46 +30,31 @@ public class DriveLink {
     }
 
     public static Map<String, DriveLink> of(String k1, DriveLink v1, String k2, DriveLink v2) {
-        Map<String, DriveLink> map = new LinkedHashMap<>();
-        map.put(k1, v1);
+        Map<String, DriveLink> map = of(k1, v1);
         map.put(k2, v2);
         return  map;
     }
 
     public static Map<String, DriveLink> of(String k1, DriveLink v1, String k2, DriveLink v2,  String k3, DriveLink v3) {
-        Map<String, DriveLink> map = new LinkedHashMap<>();
-        map.put(k1, v1);
-        map.put(k2, v2);
+        Map<String, DriveLink> map = of(k1, v1, k2, v2);
         map.put(k3, v3);
         return  map;
     }
 
     public static Map<String, DriveLink> of(String k1, DriveLink v1, String k2, DriveLink v2,  String k3, DriveLink v3,  String k4, DriveLink v4) {
-        Map<String, DriveLink> map = new LinkedHashMap<>();
-        map.put(k1, v1);
-        map.put(k2, v2);
-        map.put(k3, v3);
+        Map<String, DriveLink> map = of(k1, v1, k2, v2, k3, v3);
         map.put(k4, v4);
         return  map;
     }
 
     public static Map<String, DriveLink> of(String k1, DriveLink v1, String k2, DriveLink v2,  String k3, DriveLink v3,  String k4, DriveLink v4,  String k5, DriveLink v5) {
-        Map<String, DriveLink> map = new LinkedHashMap<>();
-        map.put(k1, v1);
-        map.put(k2, v2);
-        map.put(k3, v3);
-        map.put(k4, v4);
+        Map<String, DriveLink> map = of(k1, v1, k2, v2, k3, v3, k4, v4);
         map.put(k5, v5);
         return  map;
     }
 
     public static Map<String, DriveLink> of(String k1, DriveLink v1, String k2, DriveLink v2,  String k3, DriveLink v3,  String k4, DriveLink v4,  String k5, DriveLink v5, String k6, DriveLink v6,  String k7, DriveLink v7) {
-        Map<String, DriveLink> map = new LinkedHashMap<>();
-        map.put(k1, v1);
-        map.put(k2, v2);
-        map.put(k3, v3);
-        map.put(k4, v4);
-        map.put(k5, v5);
+        Map<String, DriveLink> map = of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5);
         map.put(k6, v6);
         map.put(k7, v7);
         return  map;

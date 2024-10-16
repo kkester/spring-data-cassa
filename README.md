@@ -62,6 +62,12 @@ DESC[RIBE] keyspaces;
 TRUNCATE <TableName>;
 ```
 
+## Running the Application
+
+To start up the application for the first time, first execute `./gradlew npmInstall`.
+
+Once the npm install has completed successfully, then just run `./gradlew bootRun`.
+
 ## Reference Documentation
 For further reference, please consider the following sections:
 

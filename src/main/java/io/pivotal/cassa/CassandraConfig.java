@@ -9,13 +9,13 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 @EnableCassandraRepositories
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
-    @Value("${spring.data.cassandra.keyspace-name}")
+    @Value("${spring.cassandra.keyspace-name}")
     private String keyspaceName;
 
-    @Value("${spring.data.cassandra.contact-points}")
+    @Value("${spring.cassandra.contact-points}")
     private String contactPoints;
 
-    @Value("${spring.data.cassandra.port}")
+    @Value("${spring.cassandra.port}")
     private int port;
 
     @Override
