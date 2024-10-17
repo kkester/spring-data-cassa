@@ -1,11 +1,11 @@
 import '../css/Monopoly.css';
 
-import { useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { ApiErrors, DriveResource, getResource, HttpMethod, Link, saveResource } from '../api/MonopolyApi';
-import { Modal } from '../components/Modal';
-import { Entrepreneur } from '../components/Entrepreneur';
-import { Square } from '../components/Square';
+import {useParams} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {ApiErrors, DriveResource, getResource, HttpMethod, Link, saveResource} from '../api/MonopolyApi';
+import {Modal} from '../components/Modal';
+import {Entrepreneur} from '../components/Entrepreneur';
+import {Square} from '../components/Square';
 
 export const Monopoly = () => {
 
@@ -30,7 +30,7 @@ export const Monopoly = () => {
     const newPlayers: any[] = newResource['data'] ? newResource['data']['players'] : [];
     const newMessages: string[] = newPlayers && newPlayers
       .filter(player => player['message'])
-      .map(player => player['name'] + ', ' + player['message']);
+      .map(player => player['message']);
     setMessages(newMessages);
     if (newMessages && newMessages.length > 0) {
       setShouldShowModal(true);
@@ -61,7 +61,6 @@ export const Monopoly = () => {
     <Entrepreneur name={ player['name'] }
                   tokenType={ player['tokenType'] }
                   funds={ player['funds'] }
-                  square={ player['square'] }
                   human={ player['human'] }
                   rollLink={ links['roll'] }
                   clickHandler={ toggleClickHandler }

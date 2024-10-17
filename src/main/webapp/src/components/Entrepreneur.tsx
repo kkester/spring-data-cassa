@@ -6,7 +6,6 @@ export const Entrepreneur = (props: {
   name: string;
   tokenType: string;
   funds: number;
-  square: any;
   human: boolean;
   rollLink: Link;
   clickHandler: (link: Link) => void;

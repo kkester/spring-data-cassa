@@ -24,6 +24,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springModulithVersion', "1.2.4")
+}
+
 node {
 	version = '22.7.0'
 	download = true
@@ -43,7 +47,14 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
 	testImplementation 'org.cassandraunit:cassandra-unit-spring:4.3.1.0'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
+	}
 }
 
 tasks.named('test') {

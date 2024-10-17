@@ -70,10 +70,6 @@ export type ApiErrors = {
   errors?: ApiErrorSet;
 }
 
-const injectId = (resource: DriveResource): DriveResource => {
-  return {...resource, id: Date.now()};
-}
-
 export const apiHost = "http://localhost:8080";
 
 export const getResource = async (uri: string): Promise<DriveResource> => {
@@ -87,21 +83,6 @@ export const saveResource = async (uri: string, body: any): Promise<DriveResourc
   const data = await fetch(apiHost + uri, {
     method: "POST",
     body: body
-  });
-  return data.json();
-};
-
-export const updateResource = async (uri: string, body: any): Promise<DriveResource> => {
-  const data = await fetch(uri, {
-    method: "PUT",
-    body: body
-  });
-  return data.json();
-};
-
-export const deleteResource = async (uri: string): Promise<DriveResource> => {
-  const data = await fetch(uri, {
-    method: "DELETE"
   });
   return data.json();
 };
