@@ -1,12 +1,10 @@
 package io.pivotal.cassa.monopoly.executors;
 
 import io.pivotal.cassa.board.OwnedType;
-import io.pivotal.cassa.board.SquareDetails;
+import io.pivotal.cassa.board.Square;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.property.IPropertyCommand;
 import io.pivotal.cassa.property.Property;
-import io.pivotal.cassa.property.db.PropertyEntity;
-import io.pivotal.cassa.property.db.PropertyKey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +16,7 @@ public class BuyPropertyExecutor {
 
     private final IPropertyCommand propertyCommand;
 
-    public void handleBuyProperty(UUID monopolyId, Entrepreneur player, SquareDetails square) {
+    public void handleBuyProperty(UUID monopolyId, Entrepreneur player, Square square) {
         if ((player.getFunds() - square.getPrice()) < 250) {
             return;
         }

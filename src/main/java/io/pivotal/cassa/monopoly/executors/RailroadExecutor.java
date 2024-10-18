@@ -2,7 +2,7 @@ package io.pivotal.cassa.monopoly.executors;
 
 import io.pivotal.cassa.board.ISquareRetriever;
 import io.pivotal.cassa.board.OwnedType;
-import io.pivotal.cassa.board.SquareDetails;
+import io.pivotal.cassa.board.Square;
 import io.pivotal.cassa.board.SquareType;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.entrepreneur.IEntrepreneurRetriever;
@@ -22,24 +22,24 @@ public class RailroadExecutor {
     private final ISquareRetriever squareRetriever;
     private final BuyPropertyExecutor buyPropertyExecutor;
 
-    public void processSquare(UUID monopolyId, Entrepreneur player, SquareDetails square) {
+    public void processSquare(UUID monopolyId, Entrepreneur player, Square square) {
         propertyRetriever.findById(monopolyId, square.getId())
             .ifPresentOrElse(
                 property -> handlePropertyFound(player, square, property),
                 () -> handlePropertyNotFound(monopolyId, player, square));
     }
 
-    private void handlePropertyFound(Entrepreneur player, SquareDetails squareEntity, Property property) {
+    private void handlePropertyFound(Entrepreneur player, Square squareEntity, Property property) {
         UUID entrepreneurId = property.getEntrepreneurId();
         if (!entrepreneurId.equals(player.getId())) {
             handlePlayerDoesNotOwnProperty(player, squareEntity, property, entrepreneurId);
         }
     }
 
-    private void handlePlayerDoesNotOwnProperty(Entrepreneur player, SquareDetails squareEntity, Property propertyEntity, UUID entrepreneurId) {
+    private void handlePlayerDoesNotOwnProperty(Entrepreneur player, Square squareEntity, Property propertyEntity, UUID entrepreneurId) {
         SquareType squareType = squareEntity.getType();
         long propertyTypeCount = propertyRetriever.findAllByEntrepreneurId(entrepreneurId).stream()
-            .filter(playerProperty -> squareType.equals(squareRetriever.getSquareDetailsById(playerProperty.getSquareId()).getType()))
+            .filter(playerProperty -> squareType.equals(squareRetriever.getSquareById(playerProperty.getSquareId()).getType()))
             .count();
         entrepreneurRetriever.findById(entrepreneurId)
             .ifPresent(owner -> {
@@ -51,7 +51,7 @@ public class RailroadExecutor {
             });
     }
 
-    private void handlePropertyNotFound(UUID monopolyId, Entrepreneur player, SquareDetails square) {
+    private void handlePropertyNotFound(UUID monopolyId, Entrepreneur player, Square square) {
         buyPropertyExecutor.handleBuyProperty(monopolyId, player, square);
     }
 }

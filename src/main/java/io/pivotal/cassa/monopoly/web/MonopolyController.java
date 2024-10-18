@@ -4,7 +4,6 @@ import io.pivotal.cassa.board.TokenType;
 import io.pivotal.cassa.monopoly.executors.MonopolyExecutor;
 import io.pivotal.cassa.mediatype.DriveResource;
 import io.pivotal.cassa.mediatype.DriveResourceGenerator;
-import io.pivotal.cassa.monopoly.Monopoly;
 import io.pivotal.cassa.monopoly.components.MonopolyGenerator;
 import io.pivotal.cassa.monopoly.components.MonopolyRetriever;
 import lombok.RequiredArgsConstructor;
@@ -35,21 +34,21 @@ public class MonopolyController {
     }
 
     @GetMapping("/monopoly/{monopolyId}")
-    public DriveResource<Monopoly> getMonopolyById(@PathVariable UUID monopolyId) {
-        Monopoly monopoly = monopolyRetriever.get(monopolyId);
-        return resourceGenerator.createDriveResource(rollLinks(monopoly), monopoly);
+    public DriveResource<MonopolyDto> getMonopolyById(@PathVariable UUID monopolyId) {
+        MonopolyDto monopoly = monopolyRetriever.get(monopolyId);
+        return resourceGenerator.createDriveResource(rollLinks(monopoly.isGameOver(), monopoly.getId()), monopoly);
     }
 
     @PostMapping("/monopoly/token")
-    public DriveResource<Monopoly> createToken(@RequestParam TokenType token) {
-        Monopoly monopoly = monopolyGenerator.create(token);
+    public DriveResource<MonopolyDto> createToken(@RequestParam TokenType token) {
+        MonopolyDto monopoly = monopolyGenerator.create(token);
         return resourceGenerator.createDriveResource(emptyMap(), monopoly);
     }
 
     @PostMapping("/monopoly/{monopolyId}/roll")
-    public DriveResource<Monopoly> rollDice(@PathVariable UUID monopolyId) {
+    public DriveResource<MonopolyDto> rollDice(@PathVariable UUID monopolyId) {
         monopolyExecutor.rollDice(monopolyId);
-        Monopoly monopoly = monopolyRetriever.get(monopolyId);
-        return resourceGenerator.createDriveResource(rollLinks(monopoly), monopoly);
+        MonopolyDto monopoly = monopolyRetriever.get(monopolyId);
+        return resourceGenerator.createDriveResource(rollLinks(monopoly.isGameOver(), monopoly.getId()), monopoly);
     }
 }

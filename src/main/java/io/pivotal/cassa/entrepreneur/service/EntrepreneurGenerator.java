@@ -17,6 +17,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class EntrepreneurGenerator implements IEntrepreneurGenerator {
 
+    public static final String GO = "GO";
+
     private final ISquareRetriever squareRetriever;
     private final EntrepreneurRepository entrepreneurRepository;
     private final EntrepreneurConverter entrepreneurConverter;
@@ -29,7 +31,7 @@ public class EntrepreneurGenerator implements IEntrepreneurGenerator {
             .tokenType(tokenType)
             .funds(1500)
             .monopolyId(monopolyId)
-            .squareId(squareRetriever.getSquareDetailsByName("GO").getId())
+            .squareId(squareRetriever.getSquareByName(GO).getId())
             .human(human)
             .build();
         entrepreneurRepository.save(entrepreneurEntity);

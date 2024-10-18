@@ -1,32 +1,25 @@
-package io.pivotal.cassa.board.db;
+package io.pivotal.cassa.monopoly.web;
 
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaBool;
 import com.kjetland.jackson.jsonSchema.annotations.JsonSchemaInject;
 import io.pivotal.cassa.board.OwnedType;
-import io.pivotal.cassa.board.SquareType;
+import io.pivotal.cassa.board.TokenType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder(toBuilder = true)
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonSchemaInject(bools = {@JsonSchemaBool(path = "readOnly", value = true)})
-public class SquareEntity {
+public class SquareDto {
     private Integer id;
     private String name;
-    private ColorType color;
-    private SquareType type;
-    private Integer price;
-    private Integer tax;
-    private Integer salary;
-    private Integer rent;
-    private Integer houseRent;
-    private Integer houseCost;
-    private Integer hotelRent;
-    private Integer hotelCost;
     private OwnedType ownedType;
-    private String imageName;
+    private String owner;
+    private List<TokenType> visitors;
 }

@@ -1,6 +1,6 @@
 package io.pivotal.cassa.monopoly.executors;
 
-import io.pivotal.cassa.board.SquareDetails;
+import io.pivotal.cassa.board.Square;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.entrepreneur.IEntrepreneurCommand;
 import io.pivotal.cassa.entrepreneur.IEntrepreneurRetriever;
@@ -20,18 +20,18 @@ public class PropertyExecutor {
 
     private final IEntrepreneurRetriever entrepreneurRetriever;
     private final IEntrepreneurCommand entrepreneurCommand;
-    private final IPropertyRetriever propertyRepository;
+    private final IPropertyRetriever propertyRetriever;
     private final IPropertyCommand propertyCommand;
     private final BuyPropertyExecutor buyPropertyExecutor;
 
-    public void processSquare(UUID monopolyId, Entrepreneur player, SquareDetails square) {
-        propertyRepository.findById(monopolyId, square.getId())
+    public void processSquare(UUID monopolyId, Entrepreneur player, Square square) {
+        propertyRetriever.findById(monopolyId, square.getId())
             .ifPresentOrElse(
                 property -> handlePropertyFound(player, square, property),
                 () -> handlePropertyNotFound(monopolyId, player, square));
     }
 
-    private void handlePropertyFound(Entrepreneur player, SquareDetails square, Property property) {
+    private void handlePropertyFound(Entrepreneur player, Square square, Property property) {
         UUID entrepreneurId = property.getEntrepreneurId();
         if (entrepreneurId.equals(player.getId())) {
             handlePlayerOwnsProperty(player, square, property);
@@ -40,7 +40,7 @@ public class PropertyExecutor {
         }
     }
 
-    private void handlePlayerOwnsProperty(Entrepreneur player, SquareDetails square, Property property) {
+    private void handlePlayerOwnsProperty(Entrepreneur player, Square square, Property property) {
         Integer funds = player.getFunds();
         if (OWNED.equals(property.getOwnedType()) && (funds - square.getHouseCost()) > 250) {
             property.setOwnedType(HOUSE);
@@ -52,7 +52,7 @@ public class PropertyExecutor {
         propertyCommand.update(property);
     }
 
-    private void handlePlayerDoesNotOwnProperty(Entrepreneur player, SquareDetails square, Property property, UUID entrepreneurId) {
+    private void handlePlayerDoesNotOwnProperty(Entrepreneur player, Square square, Property property, UUID entrepreneurId) {
         entrepreneurRetriever.findById(entrepreneurId)
             .ifPresent(owner -> {
                 Integer rent = 0;
@@ -76,7 +76,7 @@ public class PropertyExecutor {
             });
     }
 
-    private void handlePropertyNotFound(UUID monopolyId, Entrepreneur player, SquareDetails square) {
+    private void handlePropertyNotFound(UUID monopolyId, Entrepreneur player, Square square) {
         buyPropertyExecutor.handleBuyProperty(monopolyId, player, square);
     }
 }

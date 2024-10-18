@@ -1,7 +1,7 @@
 package io.pivotal.cassa.monopoly.executors;
 
 import io.pivotal.cassa.board.ISquareRetriever;
-import io.pivotal.cassa.board.SquareDetails;
+import io.pivotal.cassa.board.Square;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.property.IPropertyCommand;
 import io.pivotal.cassa.property.IPropertyRetriever;
@@ -39,7 +39,7 @@ public class BankruptExecutor {
     }
 
     private void sellProperty(Entrepreneur player, Property property) {
-        SquareDetails square = squareRetriever.getSquareDetailsById(property.getSquareId());
+        Square square = squareRetriever.getSquareById(property.getSquareId());
         if (HOTEL.equals(property.getOwnedType())) {
             Integer salePrice = calculateSalePrice(square.getHotelCost());
             player.setFunds(player.getFunds() + salePrice);

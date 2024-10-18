@@ -1,7 +1,7 @@
 package io.pivotal.cassa.monopoly.executors;
 
 import io.pivotal.cassa.board.ISquareRetriever;
-import io.pivotal.cassa.board.SquareDetails;
+import io.pivotal.cassa.board.Square;
 import io.pivotal.cassa.entrepreneur.Entrepreneur;
 import io.pivotal.cassa.entrepreneur.IEntrepreneurCommand;
 import io.pivotal.cassa.entrepreneur.IEntrepreneurRetriever;
@@ -33,33 +33,36 @@ public class MonopolyExecutor {
     private final Faker faker;
 
     public void rollDice(UUID monopolyId) {
-        List<UUID> playerIds = entrepreneurRetriever.retrieveEntrepreneurs(monopolyId)
-            .stream().map(Entrepreneur::getId).toList();
-        playerIds.forEach(playerId ->
-            entrepreneurRetriever.findById(playerId)
-                .ifPresent(player -> {
-                    if (player.getFunds() > 0) {
-                        Integer roll = faker.random().nextInt(2, 12);
-                        int nextSquare = player.getSquareId() + roll;
-                        if (nextSquare > 40) {
-                            nextSquare = nextSquare - 40;
-                            player.setFunds(player.getFunds() + 200);
-                        }
-                        player.setMessage(null);
-                        player.setSquareId(nextSquare);
-                        invokeSquareExecutor(monopolyId, player, nextSquare);
-                        if (player.getFunds() < 1) {
-                            bankruptExecutor.handleBankruptcy(player);
-                        }
-                        entrepreneurCommand.update(player);
-                    }
+        List<UUID> playerIds = entrepreneurRetriever.retrieveEntrepreneurs(monopolyId).stream()
+                .map(player -> {
+                    player.setMessage(null);
+                    return player.getId();
                 })
+                .toList();
+        playerIds.forEach(playerId ->
+                entrepreneurRetriever.findById(playerId)
+                        .ifPresent(player -> {
+                            if (player.getFunds() > 0) {
+                                Integer roll = faker.random().nextInt(2, 12);
+                                int nextSquare = player.getSquareId() + roll;
+                                if (nextSquare > 40) {
+                                    nextSquare = nextSquare - 40;
+                                    player.setFunds(player.getFunds() + 200);
+                                }
+                                player.setSquareId(nextSquare);
+                                invokeSquareExecutor(monopolyId, player, nextSquare);
+                                if (player.getFunds() < 1) {
+                                    bankruptExecutor.handleBankruptcy(player);
+                                }
+                            }
+                            entrepreneurCommand.update(player);
+                        })
         );
         evaluateGameStatus(monopolyId, playerIds);
     }
 
     private void invokeSquareExecutor(UUID monopolyId, Entrepreneur player, int squareId) {
-        SquareDetails square = squareRetriever.getSquareDetailsById(squareId);
+        Square square = squareRetriever.getSquareById(squareId);
         switch (square.getType()) {
             case CHANCE -> chanceExecutor.processSquare(player);
             case CHEST -> chestExecutor.processSquare(player);
@@ -74,15 +77,15 @@ public class MonopolyExecutor {
 
     private void evaluateGameStatus(UUID monopolyId, List<UUID> playerIds) {
         List<Entrepreneur> players = playerIds.stream()
-            .map(entrepreneurRetriever::findById)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .toList();
+                .map(entrepreneurRetriever::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
         Integer humanFunds = players.stream()
-            .filter(Entrepreneur::isHuman)
-            .findFirst()
-            .map(Entrepreneur::getFunds)
-            .orElse(0);
+                .filter(Entrepreneur::isHuman)
+                .findFirst()
+                .map(Entrepreneur::getFunds)
+                .orElse(0);
         long count = players.stream().filter(p -> p.getFunds() > 0).count();
         boolean gameOver = humanFunds < 1 || count == 1;
         monopolyRepository.findById(monopolyId).ifPresent(monopolyEntity -> {

@@ -1,7 +1,7 @@
 package io.pivotal.cassa.board.web;
 
 import io.pivotal.cassa.board.ISquareRetriever;
-import io.pivotal.cassa.board.SquareDetails;
+import io.pivotal.cassa.board.Square;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -26,8 +26,8 @@ public class SquareController {
     @GetMapping("/squares/{squareId}/image")
     @SneakyThrows
     public void getSquareImage(@PathVariable Integer squareId, HttpServletResponse response) {
-        SquareDetails squareDetails = squareRetriever.getSquareDetailsById(squareId);
-        try (InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:images/" + squareDetails.getImageName())) ) {
+        Square square = squareRetriever.getSquareById(squareId);
+        try (InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:images/" + square.getImageName())) ) {
             response.setContentType(MediaType.IMAGE_PNG_VALUE);
             IOUtils.copy(in, response.getOutputStream());
         }

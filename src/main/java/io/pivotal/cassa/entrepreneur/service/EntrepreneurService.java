@@ -27,8 +27,8 @@ public class EntrepreneurService implements IEntrepreneurRetriever, IEntrepreneu
     }
 
     @Override
-    public Optional<Entrepreneur> findById(UUID playerID) {
-        return entrepreneurRepository.findById(playerID)
+    public Optional<Entrepreneur> findById(UUID playerId) {
+        return entrepreneurRepository.findById(playerId)
                 .map(entrepreneurConverter::toEntrepreneur);
     }
 

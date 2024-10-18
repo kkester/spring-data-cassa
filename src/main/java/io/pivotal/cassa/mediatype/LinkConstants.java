@@ -1,11 +1,11 @@
 package io.pivotal.cassa.mediatype;
 
-import io.pivotal.cassa.monopoly.Monopoly;
 import io.pivotal.cassa.board.TokenType;
 import org.springframework.http.HttpMethod;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.UUID;
 
 public class LinkConstants {
 
@@ -77,11 +77,11 @@ public class LinkConstants {
         "battleship", BATTLESHIP_LINK
     );
 
-    public static Map<String, DriveLink> rollLinks(Monopoly monopoly) {
-        return monopoly.isGameOver() ?
+    public static Map<String, DriveLink> rollLinks(boolean gameOver, UUID monopolyId) {
+        return gameOver ?
             Collections.emptyMap() :
             DriveLink.of(
-                "roll", ROLL_LINK.applyVariables(monopoly.getId())
+                "roll", ROLL_LINK.applyVariables(monopolyId)
             );
     }
 
